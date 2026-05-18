@@ -2,11 +2,11 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 const skillCategories = [
-  { label: "AI / ML", items: ["LLMs", "RAG", "LangChain", "Computer Vision", "NLP", "Prompt Engineering", "Fine-Tuning"] },
-  { label: "Programming", items: ["Python", "R", "SQL", "JavaScript", "TypeScript", "Java", "C++"] },
-  { label: "Backend & Data", items: ["PostgreSQL", "MongoDB", "Supabase", "Firebase", "Pinecone", "Redis", "Databricks"] },
-  { label: "Dev Tools", items: ["Git", "Docker", "AWS", "Azure", "GCP", "Vercel", "CodeRabbit"] },
-  { label: "Product", items: ["Figma", "Jira", "A/B Testing", "Databricks", "Openrouter", "Hugging Face", "Tableau"] },
+  { label: "AI / ML", items: ["LLMs & Agentic Systems", "LangChain", "RLHF", "NLP", "Neural Networks", "Computer Vision (OpenCV)", "Time Series"] },
+  { label: "Programming", items: ["Python (PyTorch, TensorFlow, Pandas, Scikit-learn)", "SQL", "TypeScript", "JavaScript", "Swift (iOS)", "R", "C++"] },
+  { label: "Backend & Infra", items: ["FastAPI", "PostgreSQL", "MongoDB", "Supabase", "Azure", "AWS", "GCP", "GitHub Actions", "Docker", "Vercel"] },
+  { label: "Dev Tools", items: ["React/Next.js", "Expo (React Native)", "Jupyter", "Stripe", "Sentry", "CodeRabbit", "Git/GitHub"] },
+  { label: "Product & Analytics", items: ["A/B Testing", "Databricks", "Tableau", "Linear", "JIRA", "PostHog", "Openrouter", "Hugging Face"] },
 ];
 
 const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
@@ -82,8 +82,8 @@ const AboutContent = () => {
   const eduRef = useRef(null);
   const eduInView = useInView(eduRef, { once: true, margin: "-30px" });
 
-  const bio1 = "I'm Gauresh — a product builder and AI strategist based in Los Angeles. I work at the intersection of technology consulting, data science, and product development. Currently at PwC helping Fortune 500 companies navigate AI transformation, while building my own products on the side.";
-  const bio2 = "UCLA grad with dual degrees in Statistics & Data Science and Business Economics. I believe the best products are built when deep technical skills meet genuine empathy for users.";
+  const bio1 = "I'm Gauresh — I build at the intersection of AI, data, product, and business. Equal parts engineer and operator: curious, ambitious, and obsessed with building what's next.";
+  const bio2 = "At PwC Deals, I ship AI-native products, data systems, and automation tools across M&A tech diligence and enterprise analytics — architecting agentic workflows, developing AI-powered platforms, and shaping product direction directly with Fortune 500 and PE-backed clients. Outside of work, I build full-stack AI products from zero to one.";
 
   return (
     <div className="space-y-12">
@@ -112,6 +112,37 @@ const AboutContent = () => {
           >
             <TypingText text={bio2} delay={3800} />
           </motion.p>
+        </div>
+      </div>
+
+      {/* Principles */}
+      <div>
+        <motion.h3
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-lg font-semibold text-foreground mb-4 font-mono"
+        >
+          <span className="text-primary/60">#</span> Principles
+        </motion.h3>
+        <div className="space-y-2">
+          {[
+            { emoji: "💡", text: "Keep it simple, stupid." },
+            { emoji: "🤍", text: "Lead with your heart, the head will follow." },
+            { emoji: "⚡", text: "Chase the kick!" },
+          ].map(({ emoji, text }, i) => (
+            <motion.div
+              key={text}
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="flex items-center gap-3 text-muted-foreground"
+            >
+              <span>{emoji}</span>
+              <span>{text}</span>
+            </motion.div>
+          ))}
         </div>
       </div>
 
@@ -152,7 +183,7 @@ const AboutContent = () => {
           <p className="text-primary font-medium mt-1">B.S. Statistics & Data Science + B.A. Business Economics</p>
           <p className="text-sm text-muted-foreground mt-1">Sep 2021 – Jun 2025 · GPA: 3.8 / 4.0</p>
           <div className="flex flex-wrap gap-2 mt-3">
-            {["Dean's Honor List", "Sharpe Fellow", "Start-Up Nation Fellow"].map((h, i) => (
+            {["Dean's Honor List (2022–2025)", "William F. Sharpe Fellow", "Start-Up Nation Fellow"].map((h, i) => (
               <motion.span
                 key={h}
                 initial={{ opacity: 0, scale: 0.8 }}

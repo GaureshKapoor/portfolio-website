@@ -2,12 +2,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const facts = [
-  { emoji: "🌍", text: "Born in India, built in LA" },
-  { emoji: "☕", text: "Fueled by chai and cold brew equally" },
-  { emoji: "🧠", text: "Believe AI should augment humans, not replace them" },
-  { emoji: "🏀", text: "Lakers fan since day one" },
-  { emoji: "✈️", text: "12 countries and counting" },
-  { emoji: "📱", text: "Always building something on the side" },
+  { emoji: "🔵", text: "Man City fan — always" },
+  { emoji: "🍜", text: "Big foodie — religiously on Beli" },
+  { emoji: "🏔️", text: "Into the outdoors — hiking, exploring, all of it" },
+  { emoji: "🎬", text: "Concerts, premieres, movies, TV shows — yes to all" },
+  { emoji: "✈️", text: "20+ countries and counting — travel nerd through and through" },
+  { emoji: "🤖", text: "Obsessed with AI and startups — building and following both" },
 ];
 
 const FactCard = ({ fact, index }: { fact: typeof facts[0]; index: number }) => {

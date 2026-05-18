@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { Trophy, Award, Lightbulb, DollarSign, Medal } from "lucide-react";
 
 const achievements = [
-  { icon: Award, title: "Dean's Honor List", desc: "UCLA, multiple quarters", color: "text-primary" },
-  { icon: Medal, title: "Sharpe Fellow", desc: "Selected for UCLA's Sharpe Fellowship program", color: "text-primary" },
-  { icon: Lightbulb, title: "Start-Up Nation Fellow", desc: "Innovation fellowship for entrepreneurship", color: "text-primary" },
-  { icon: DollarSign, title: "$10K GenAI Grant", desc: "Received grant for generative AI research and development", color: "text-primary" },
-  { icon: Trophy, title: "Innovate@UCLA — 1st Place", desc: "Won first place at UCLA's innovation competition", color: "text-primary" },
-  { icon: Trophy, title: "FBRC.ai Hackathon — 2nd Place", desc: "Runner-up at the FBRC.ai AI hackathon", color: "text-primary" },
+  { icon: Award, title: "Dean's Honor List", desc: "UCLA, 2022–2025", color: "text-primary" },
+  { icon: Medal, title: "William F. Sharpe Fellow", desc: "Sharpe Fellowship — UCLA Anderson", color: "text-primary" },
+  { icon: Lightbulb, title: "Start-Up Nation Fellow", desc: "Innovation and entrepreneurship fellowship", color: "text-primary" },
+  { icon: DollarSign, title: "$10K GenAI & Health Innovation Grant", desc: "Awarded for generative AI and health innovation research", color: "text-primary" },
+  { icon: Trophy, title: "Innovate@UCLA Tech Challenge — 1st Place", desc: "First place at UCLA's flagship tech innovation competition", color: "text-primary" },
+  { icon: Trophy, title: "FBRC.ai × Luma AI Hackathon — 2nd Place", desc: "Runner-up at the FBRC.ai × Luma AI hackathon", color: "text-primary" },
 ];
 
 const AchievementCard = ({ achievement, index }: { achievement: typeof achievements[0]; index: number }) => {

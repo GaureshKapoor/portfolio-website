@@ -64,7 +64,7 @@ const Landing = () => {
               animate={exiting ? { opacity: 0 } : {}}
               transition={{ duration: 0.3, delay: 0.05 }}
             >
-              Building at the intersection of AI, product, and business.
+              Equal parts engineer and operator — building at the intersection of AI, product, and business.
             </motion.p>
           </motion.div>
 
