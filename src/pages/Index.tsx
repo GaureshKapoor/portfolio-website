@@ -1,27 +1,5 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Experience from "@/components/Experience";
-import Skills from "@/components/Skills";
-import LinkedInPosts from "@/components/LinkedInPosts";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import Landing from "@/components/Landing";
 
-const Index = () => {
-  return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <LinkedInPosts />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
-  );
-};
+const Index = () => <Landing />;
 
 export default Index;
