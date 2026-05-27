@@ -43,3 +43,10 @@ npm run build   # outputs to dist/
 ```
 
 Vercel auto-deploys on push to `main`.
+
+## Continuous integration
+
+Two Claude Code GitHub Actions are configured (`.github/workflows/`):
+
+- **`@claude` mentions** — comment `@claude <request>` on any issue or PR to get a response.
+- **Automated PR review** — add the `claude-review` label to a pull request to trigger a full review. It is opt-in (label-gated) to keep CI usage low; it does **not** run automatically on every push. Remove and re-add the label to re-review after changes.
