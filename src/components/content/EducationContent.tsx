@@ -159,7 +159,7 @@ const EducationContent = () => {
         {/* UCLA */}
         <RevealItem className="relative">
           <span className={node} />
-          <div className="rounded-lg border border-border bg-card p-6">
+          <div className="rounded-lg border border-border bg-card p-4 sm:p-6">
             <div className="mb-5 flex items-start gap-4">
               <SchoolLogo src="/logos/ucla.png" />
               <div className="min-w-0">
@@ -205,7 +205,7 @@ const EducationContent = () => {
             {Object.entries(coursework).map(([group, courses]) => (
               <div key={group}>
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2.5">{group}</p>
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {courses.map((c) => (
                     <CourseTile key={c} course={c} />
                   ))}
@@ -218,7 +218,7 @@ const EducationContent = () => {
         {/* Springdales — same structure as UCLA */}
         <RevealItem className="relative">
           <span className={node} />
-          <div className="rounded-lg border border-border bg-card p-6">
+          <div className="rounded-lg border border-border bg-card p-4 sm:p-6">
             <div className="mb-5 flex items-start gap-4">
               <SchoolLogo src="/logos/springdales.png" />
               <div className="min-w-0">

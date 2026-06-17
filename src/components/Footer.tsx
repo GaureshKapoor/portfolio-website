@@ -20,7 +20,7 @@ const Footer = () => {
         <p className="text-sm font-medium text-muted-foreground">
           Last updated · {lastUpdated}
         </p>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
           <Link
             to="/contact"
             className="inline-flex items-center px-3.5 py-1.5 text-sm font-medium rounded-md border border-border text-foreground hover:bg-accent transition-colors"
