@@ -1,9 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { motion } from "framer-motion";
 import SectionLayout from "@/components/SectionLayout";
+import { Reveal, RevealItem } from "@/components/Reveal";
 import { projects } from "@/components/content/ProjectsContent";
-import StaggerChildren, { staggerItem } from "@/components/StaggerChildren";
 
 const ProjectDetailPage = () => {
   const { slug } = useParams();
@@ -16,7 +15,7 @@ const ProjectDetailPage = () => {
         <div className="text-center py-16">
           <p className="text-muted-foreground mb-4">Project not found.</p>
           <button onClick={() => navigate("/projects")} className="text-primary hover:underline">
-            ← Back to Projects
+            Back to Projects
           </button>
         </div>
       </SectionLayout>
@@ -25,38 +24,42 @@ const ProjectDetailPage = () => {
 
   return (
     <SectionLayout title={project.name}>
-      <StaggerChildren className="space-y-8 max-w-2xl">
-        <motion.button
-          variants={staggerItem}
-          onClick={() => navigate("/projects")}
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          All Projects
-        </motion.button>
+      <Reveal className="space-y-10">
+        <RevealItem>
+          <button
+            onClick={() => navigate("/projects")}
+            className="inline-flex items-center gap-2 font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            All Projects
+          </button>
+        </RevealItem>
 
-        <motion.div variants={staggerItem}>
-          <h2 className="text-3xl font-bold text-foreground mb-1">{project.name}</h2>
-          <p className="font-mono text-sm text-muted-foreground">{project.period}</p>
-        </motion.div>
+        <RevealItem>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">{project.name}</h2>
+          <p className="font-mono text-xs text-primary mt-2">{project.period}</p>
+        </RevealItem>
 
-        <motion.div variants={staggerItem}>
-          <p className="text-muted-foreground leading-relaxed">{project.longDescription}</p>
-        </motion.div>
+        <RevealItem>
+          <p className="text-[15px] text-foreground/85 leading-relaxed">{project.longDescription}</p>
+        </RevealItem>
 
-        <motion.div variants={staggerItem}>
-          <h3 className="text-sm font-semibold text-foreground mb-3 font-mono">
-            <span className="text-primary/60">#</span> Tech Stack
+        <RevealItem>
+          <h3 className="font-mono text-sm text-muted-foreground">
+            <span className="text-primary"># </span>Tech Stack
           </h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 mt-4">
             {project.tech.map((t) => (
-              <span key={t} className="px-3 py-1 text-sm rounded-md bg-secondary text-secondary-foreground border border-border font-mono">
+              <span
+                key={t}
+                className="px-2 py-0.5 text-xs rounded-md bg-secondary text-secondary-foreground font-mono"
+              >
                 {t}
               </span>
             ))}
           </div>
-        </motion.div>
-      </StaggerChildren>
+        </RevealItem>
+      </Reveal>
     </SectionLayout>
   );
 };

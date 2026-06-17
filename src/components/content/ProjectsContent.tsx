@@ -1,7 +1,6 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { Reveal, RevealItem } from "@/components/Reveal";
 
 export const projects = [
   {
@@ -38,91 +37,61 @@ export const projects = [
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-  const navigate = useNavigate();
-
+const ProjectMark = ({ slug, name }: { slug: string; name: string }) => {
+  const [ok, setOk] = useState(true);
+  const initials = name.replace(/\(.*\)/, "").trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join("");
   return (
-    <motion.button
-      ref={ref}
-      initial={{ opacity: 0, y: 30, rotateX: 5 }}
-      animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -4, scale: 1.01, borderColor: "hsl(var(--primary) / 0.5)" }}
-      onClick={() => navigate(`/projects/${project.slug}`)}
-      className="text-left p-5 rounded-xl bg-card border border-border transition-all group relative overflow-hidden"
-    >
-      {/* Animated gradient overlay on hover */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-      />
-      
-      <div className="relative z-10">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-            {project.name}
-          </h3>
-          <motion.div
-            initial={{ opacity: 0, x: -5, y: 5 }}
-            animate={isInView ? { opacity: 0 } : {}}
-            whileHover={{ opacity: 1, x: 0, y: 0 }}
-            className="group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all"
-          >
-            <ArrowUpRight className="w-4 h-4 text-primary" />
-          </motion.div>
-        </div>
-        <p className="font-mono text-xs text-muted-foreground mb-3">{project.period}</p>
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{project.description}</p>
-        <div className="flex flex-wrap gap-1.5">
-          {project.tech.map((t, j) => (
-            <motion.span
-              key={t}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: index * 0.1 + 0.3 + j * 0.04 }}
-              className="px-2 py-0.5 text-[10px] rounded-full bg-primary/10 text-primary font-medium font-mono"
-            >
-              {t}
-            </motion.span>
-          ))}
-        </div>
-      </div>
-    </motion.button>
+    <div className="w-10 h-10 rounded-md border border-border bg-card flex items-center justify-center overflow-hidden shrink-0">
+      {ok ? (
+        <img src={`/logos/${slug}.svg`} alt={name} className="w-full h-full object-contain p-1.5" onError={() => setOk(false)} />
+      ) : (
+        <span className="font-mono text-xs text-muted-foreground">{initials}</span>
+      )}
+    </div>
   );
 };
 
 const ProjectsContent = () => {
-  const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true });
+  const navigate = useNavigate();
 
   return (
-    <div className="space-y-8">
-      <div ref={headerRef}>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-2xl md:text-3xl font-bold text-foreground mb-2"
-        >
-          Projects
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={headerInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.2 }}
-          className="text-muted-foreground mb-8"
-        >
-          Things I've built and contributed to.
-        </motion.p>
-      </div>
+    <Reveal className="space-y-12">
+      <RevealItem>
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">Projects</h2>
+        <p className="text-muted-foreground mt-2">Things I've built and contributed to, zero to one.</p>
+      </RevealItem>
 
-      <div className="grid md:grid-cols-2 gap-5">
-        {projects.map((p, i) => (
-          <ProjectCard key={p.slug} project={p} index={i} />
-        ))}
-      </div>
-    </div>
+      <RevealItem>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {projects.map((p) => (
+            <button
+              key={p.slug}
+              onClick={() => navigate(`/projects/${p.slug}`)}
+              className="text-left p-5 rounded-lg border border-border bg-card transition-colors hover:border-primary/40"
+            >
+              <div className="flex items-start gap-3">
+                <ProjectMark slug={p.slug} name={p.name} />
+                <div className="min-w-0">
+                  <h3 className="font-display text-lg font-semibold text-foreground leading-snug">{p.name}</h3>
+                  <p className="font-mono text-xs text-primary mt-0.5">{p.period}</p>
+                </div>
+              </div>
+              <p className="text-[15px] text-foreground/80 leading-relaxed mt-4">{p.description}</p>
+              <div className="flex flex-wrap gap-1.5 mt-4">
+                {p.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="px-2 py-0.5 text-xs rounded-md bg-secondary text-secondary-foreground font-mono"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </button>
+          ))}
+        </div>
+      </RevealItem>
+    </Reveal>
   );
 };
 

@@ -1,106 +1,88 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Linkedin, Mail, Github, Moon, Sun, FileDown } from "lucide-react";
+import { Linkedin, Mail, Github, FileDown, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import StaggerChildren, { staggerItem } from "./StaggerChildren";
-
-const navLinks = [
-  { label: "About", path: "/about" },
-  { label: "Experience", path: "/experience" },
-  { label: "Projects", path: "/projects" },
-  { label: "Achievements", path: "/achievements" },
-  { label: "Fun Facts", path: "/fun-facts" },
-  { label: "Feed", path: "/feed" },
-  { label: "Contact", path: "/contact" },
-];
+import Footer from "./Footer";
+import ThemeToggle from "./ThemeToggle";
+import ProfileAvatar from "./ProfileAvatar";
+import { sections, links } from "@/config/site";
 
 const Landing = () => {
   const navigate = useNavigate();
-  const [dark, setDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") === "dark";
-    }
-    return false;
-  });
-  const [exiting, setExiting] = useState<string | null>(null);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
-
-  const handleNavClick = (path: string) => {
-    setExiting(path);
-    setTimeout(() => navigate(path), 250);
-  };
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Theme toggle */}
-      <div className="absolute top-6 right-6 z-10">
-        <button
-          onClick={() => setDark(!dark)}
-          className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-          aria-label="Toggle theme"
-        >
-          {dark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-        </button>
+      <div className="absolute top-5 right-5 z-10">
+        <ThemeToggle />
       </div>
 
-      {/* Center content */}
-      <div className="flex-1 flex items-center justify-center px-6 py-16">
-        <StaggerChildren className="max-w-2xl w-full">
-          {/* Hero */}
-          <motion.div variants={staggerItem} className="mb-12">
-            <motion.h1
-              className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-4"
-              animate={exiting ? { opacity: 0, y: -20 } : {}}
-              transition={{ duration: 0.3 }}
-            >
-              Gauresh Kapoor
-            </motion.h1>
-            <motion.p
-              className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed"
-              animate={exiting ? { opacity: 0 } : {}}
-              transition={{ duration: 0.3, delay: 0.05 }}
-            >
-              Equal parts engineer and operator — building at the intersection of AI, product, and business.
-            </motion.p>
+      <div className="flex-1 flex items-center justify-center px-6 py-20">
+        <div className="max-w-3xl w-full flex flex-col md:flex-row md:items-start gap-8 md:gap-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="shrink-0"
+          >
+            <ProfileAvatar />
           </motion.div>
 
-          {/* Navigation links */}
-          <motion.nav
-            className="mb-12"
-            animate={exiting ? { opacity: 0 } : {}}
-            transition={{ duration: 0.3, delay: 0.1 }}
+          <StaggerChildren className="flex-1 min-w-0">
+          <motion.div variants={staggerItem} className="mb-5 flex items-center gap-2.5">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-primary/60 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+            </span>
+            <span className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
+              San Francisco · Los Angeles · New Delhi
+            </span>
+          </motion.div>
+
+          <motion.h1
+            variants={staggerItem}
+            className="font-display text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-4"
           >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3">
-              {navLinks.map((link) => (
-                <motion.button
+            Gauresh Kapoor
+          </motion.h1>
+
+          <motion.p
+            variants={staggerItem}
+            className="text-lg text-muted-foreground max-w-xl leading-relaxed mb-10"
+          >
+            Equal parts engineer and operator — building at the intersection of AI,
+            product, and business.
+          </motion.p>
+
+          <motion.nav variants={staggerItem} className="mb-12">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-3.5">
+              {sections.map((link) => (
+                <button
                   key={link.path}
-                  onClick={() => handleNavClick(link.path)}
-                  className="text-base md:text-lg text-muted-foreground hover:text-foreground transition-colors relative group"
-                  variants={staggerItem}
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
+                  onClick={() => navigate(link.path)}
+                  className="group flex items-center gap-1 text-base text-muted-foreground hover:text-foreground transition-colors w-fit"
                 >
-                  <span className="font-mono text-xs text-primary/60 mr-1.5">/</span>
-                  {link.label}
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-foreground group-hover:w-full transition-all duration-300" />
-                </motion.button>
+                  <span className="font-mono text-sm text-primary/70 mr-0.5">/</span>
+                  <span className="relative">
+                    {link.label}
+                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary group-hover:w-full transition-all duration-300" />
+                  </span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                </button>
               ))}
             </div>
           </motion.nav>
 
-          {/* Social links */}
-          <motion.div
-            className="flex flex-wrap items-center gap-3"
-            variants={staggerItem}
-            animate={exiting ? { opacity: 0 } : {}}
-            transition={{ duration: 0.3, delay: 0.15 }}
-          >
+          <motion.div variants={staggerItem} className="flex flex-wrap items-center gap-3">
             <a
-              href="https://www.linkedin.com/in/gaureshkapoor/"
+              href={links.resume}
+              download
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
+            >
+              <FileDown className="w-4 h-4" />
+              Resume
+            </a>
+            <a
+              href={links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground border border-border rounded-md hover:bg-accent transition-colors"
@@ -109,14 +91,14 @@ const Landing = () => {
               LinkedIn
             </a>
             <a
-              href="mailto:gaureshkapoor@gmail.com"
+              href={links.email}
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground border border-border rounded-md hover:bg-accent transition-colors"
             >
               <Mail className="w-4 h-4" />
               Email
             </a>
             <a
-              href="https://github.com/GaureshKapoor"
+              href={links.github}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground border border-border rounded-md hover:bg-accent transition-colors"
@@ -124,17 +106,12 @@ const Landing = () => {
               <Github className="w-4 h-4" />
               GitHub
             </a>
-            <a
-              href="/resume.pdf"
-              download
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-foreground text-background rounded-md hover:opacity-90 transition-opacity"
-            >
-              <FileDown className="w-4 h-4" />
-              Resume
-            </a>
           </motion.div>
-        </StaggerChildren>
+          </StaggerChildren>
+        </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

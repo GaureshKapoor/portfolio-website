@@ -9,7 +9,9 @@ import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import ExperiencePage from "./pages/ExperiencePage";
 import AboutPage from "./pages/AboutPage";
+import SkillsPage from "./pages/SkillsPage";
 import AchievementsPage from "./pages/AchievementsPage";
+import EducationPage from "./pages/EducationPage";
 import FunFactsPage from "./pages/FunFactsPage";
 import FeedPage from "./pages/FeedPage";
 import ContactPage from "./pages/ContactPage";
@@ -28,7 +30,9 @@ const AnimatedRoutes = () => {
         <Route path="/experience" element={<ExperiencePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+        <Route path="/skills" element={<SkillsPage />} />
         <Route path="/achievements" element={<AchievementsPage />} />
+        <Route path="/education" element={<EducationPage />} />
         <Route path="/fun-facts" element={<FunFactsPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/contact" element={<ContactPage />} />

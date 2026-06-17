@@ -6,32 +6,85 @@ Gauresh Kapoor's personal portfolio site at **gaureshkapoor.com**, deployed via 
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind CSS + shadcn/ui + Framer Motion + React Router v6
 
-**Dev server:** `npm run dev -- --port 3000` (or `bun run dev`)
+**Package manager:** **npm only** — pinned via `packageManager` + `engines` in `package.json`. Do NOT run `bun install`/`yarn`/`pnpm` here; other lockfiles are gitignored. Mixing package managers churns `node_modules` and corrupts Vite's cache (the historical cause of dev-server/build hangs).
+**Dev server:** `npm run dev -- --port 3000` (Vite default port is 8080 if `--port` omitted)
 **Build check:** `npm run build` — always verify this passes before pushing
-**Deploy:** push to `main` → Vercel auto-deploys to gaureshkapoor.com
+**Deploy:** push to `main` → Vercel auto-deploys to gaureshkapoor.com (one lockfile = deterministic install)
+
+### If the dev server or build hangs (sits at low CPU, never finishes)
+The cause is almost always an orphaned `vite`/`esbuild` process from a prior session, or a stale Vite cache — NOT the app code (clean cold start is <1s, build ~2–16s). Recover with:
+1. Kill strays: `pkill -f vite ; pkill -f esbuild` (scoped to this machine's node tooling)
+2. Clear caches: `npm run clean` (removes `node_modules/.vite` + `dist`)
+3. Nuclear option (after package changes or weird state): `npm run reinstall`
+Always stop the dev server with Ctrl+C (clean shutdown) rather than closing the terminal, so esbuild children don't orphan.
 
 ## Repo Structure
 
 ```
+content/          # FREEFORM MARKDOWN — Gauresh's editable source of truth (see below)
 src/
   pages/          # Route-level pages (one per section)
+  config/
+    site.ts       # links, sections nav order, lastUpdated — single source for these
   components/
-    content/      # All editable site content lives here — edit these first
+    content/      # Rendered section content (the .tsx Claude syncs from content/*.md)
     ui/           # shadcn/ui primitives — do not touch unless adding a new component
   hooks/
   lib/
 public/           # Static assets (favicon, images)
 ```
 
-**Content files** (where all actual portfolio text and data lives):
-- `src/components/content/AboutContent.tsx`
+**Content files** (rendered React components — Claude edits these to match `content/*.md`):
+- `src/components/content/AboutContent.tsx` (bio + principles)
 - `src/components/content/ExperienceContent.tsx`
 - `src/components/content/ProjectsContent.tsx`
+- `src/components/content/SkillsContent.tsx` (skills + tech stack)
 - `src/components/content/AchievementsContent.tsx`
-- `src/components/content/FunFactsContent.tsx`
-- `src/components/content/ContactContent.tsx`
-- `src/components/content/FeedContent.tsx`
+- `src/components/content/EducationContent.tsx` (education + courses)
+- `src/components/content/FunFactsContent.tsx` (facts + books/movies/music)
+- `src/components/content/FeedContent.tsx` (LinkedIn / Instagram gallery / X feed)
+- `src/components/content/ContactContent.tsx` (contacts + form + Gauresh AI)
 - `src/components/Landing.tsx` (landing page tagline/hero)
+
+## Content Source of Truth & Sync Workflow
+
+`content/` (repo root) holds **freeform markdown** that is Gauresh's canonical, human-editable record of his
+profile/resume. The format is intentionally loose — it is for humans/LLMs and is **never imported by the app**.
+
+**The sync rule:** when Gauresh says "I updated `content/<x>.md`" (or edits the docs), read that markdown and
+edit the matching rendered component to match. Mapping:
+
+| `content/…`        | → rendered component |
+|--------------------|----------------------|
+| `about.md`         | `AboutContent.tsx` |
+| `experience.md`    | `ExperienceContent.tsx` |
+| `projects.md`      | `ProjectsContent.tsx` (keep slugs — they key `/projects/:slug`) |
+| `skills.md`        | `SkillsContent.tsx` |
+| `education.md`     | `EducationContent.tsx` |
+| `achievements.md`  | `AchievementsContent.tsx` |
+| `fun-facts.md`     | `FunFactsContent.tsx` |
+| `feed.md`          | `FeedContent.tsx` |
+| `contact.md`       | `ContactContent.tsx` |
+| `links.md`         | `src/config/site.ts` → `links` |
+
+**Section nav order** lives in `src/config/site.ts` → `sections` (About, Experience, Projects, Skills,
+Achievements, Education, Fun Facts, Feed, Contact). It drives the landing grid, the top nav, and the
+prev/next arrows (`SectionNav`). Edit it in one place.
+
+**"Last updated" footer:** `src/config/site.ts` → `lastUpdated` (format `"Month YYYY"`), shown in `Footer.tsx`.
+**Bump it after any substantial profile/experience/content update, and proactively recommend bumping it**
+when a sync is non-trivial.
+
+**Links & footer:** site-facing links live in `links` (`site.ts`), mirrored from `content/links.md`. The
+footer + contact use them. WhatsApp/Instagram/X use inline brand SVGs in `src/components/BrandIcons.tsx`
+(lucide lacks them); lucide covers Mail/Phone/Github/Linkedin.
+
+**Deferred backends (currently stubbed UI):**
+- **Gauresh AI** chat (`src/components/GaureshAI.tsx`, Contact page only) is **mocked**. Live version =
+  Vercel `/api/chat` → Claude, system prompt/knowledge built from `content/*.md` in his voice (+ rate limiting).
+- **Contact form** (`src/components/ContactForm.tsx`) posts to Web3Forms via `VITE_WEB3FORMS_KEY`; with no key
+  it shows an info toast instead of sending. Add the key (Vercel env) to enable real delivery.
+- **Feed** is curated templates from `feed.md` (no live APIs). Real embeds can be dropped in later.
 
 ## About Gauresh
 
@@ -59,7 +112,7 @@ public/           # Static assets (favicon, images)
 
 ## Working Rules
 
-- **Content edits** → touch `src/components/content/` files only, unless the task explicitly requires layout/component changes
+- **Content edits** → the canonical source is `content/*.md`; sync changes into the matching `src/components/content/` component (see Content Source of Truth above). Don't touch layout/`ui/` unless the task requires it
 - **No new dependencies** without a clear reason — the stack is already heavy
 - **No comments** in code unless a non-obvious constraint or workaround
 - **Run `npm run build`** before any push to confirm the build is clean

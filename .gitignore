@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Single package manager = npm. Block other lockfiles from creeping back in.
+bun.lockb
+bun.lock
+yarn.lock
+pnpm-lock.yaml
+
+# Playwright MCP test artifacts (screenshots, snapshots, console logs)
+.playwright-mcp/
+
 # Claude Code — keep machine-local settings out, but track CLAUDE.md
 .claude/settings.local.json
 
@@ -25,3 +34,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.gstack/
