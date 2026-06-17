@@ -20,8 +20,8 @@ export const links = {
 // Section nav order. Single source replacing the duplicated lists that used to
 // live in Landing.tsx and SectionLayout.tsx. Also drives the prev/next arrows.
 export const sections = [
-  { label: "About", path: "/about" },
-  { label: "Experience", path: "/experience" },
+  { label: "About Me", path: "/about" },
+  { label: "Experiences", path: "/experience" },
   { label: "Projects", path: "/projects" },
   { label: "Skills", path: "/skills" },
   { label: "Achievements", path: "/achievements" },

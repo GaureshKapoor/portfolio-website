@@ -24,7 +24,7 @@ const Landing = () => {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="shrink-0"
           >
-            <ProfileAvatar />
+            <ProfileAvatar className="w-44 h-44 md:w-52 md:h-52" />
           </motion.div>
 
           <StaggerChildren className="flex-1 min-w-0">
@@ -49,13 +49,13 @@ const Landing = () => {
             variants={staggerItem}
             className="text-lg text-muted-foreground max-w-xl leading-relaxed mb-10"
           >
-            Equal parts engineer and operator — building at the intersection of AI,
+            Equal parts engineer and operator, building at the intersection of AI,
             product, and business.
           </motion.p>
 
           <motion.nav variants={staggerItem} className="mb-12">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-3.5">
-              {sections.map((link) => (
+              {sections.filter((s) => s.path !== "/contact").map((link) => (
                 <button
                   key={link.path}
                   onClick={() => navigate(link.path)}

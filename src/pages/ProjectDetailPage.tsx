@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import SectionLayout from "@/components/SectionLayout";
 import { Reveal, RevealItem } from "@/components/Reveal";
 import { projects } from "@/components/content/ProjectsContent";
@@ -24,7 +24,7 @@ const ProjectDetailPage = () => {
 
   return (
     <SectionLayout title={project.name}>
-      <Reveal className="space-y-10">
+      <Reveal className="space-y-8 max-w-2xl">
         <RevealItem>
           <button
             onClick={() => navigate("/projects")}
@@ -37,11 +37,14 @@ const ProjectDetailPage = () => {
 
         <RevealItem>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">{project.name}</h2>
-          <p className="font-mono text-xs text-primary mt-2">{project.period}</p>
+          <p className="font-mono text-xs text-primary mt-2">
+            {project.role} · {project.period}
+          </p>
+          <p className="text-[15px] text-foreground/90 leading-relaxed mt-4">{project.hook}</p>
         </RevealItem>
 
         <RevealItem>
-          <p className="text-[15px] text-foreground/85 leading-relaxed">{project.longDescription}</p>
+          <p className="text-[15px] text-muted-foreground leading-relaxed">{project.longDescription}</p>
         </RevealItem>
 
         <RevealItem>
@@ -49,7 +52,7 @@ const ProjectDetailPage = () => {
             <span className="text-primary"># </span>Tech Stack
           </h3>
           <div className="flex flex-wrap gap-1.5 mt-4">
-            {project.tech.map((t) => (
+            {project.stack.map((t) => (
               <span
                 key={t}
                 className="px-2 py-0.5 text-xs rounded-md bg-secondary text-secondary-foreground font-mono"
@@ -59,6 +62,20 @@ const ProjectDetailPage = () => {
             ))}
           </div>
         </RevealItem>
+
+        {project.link && (
+          <RevealItem>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
+            >
+              Visit {project.name}
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </RevealItem>
+        )}
       </Reveal>
     </SectionLayout>
   );

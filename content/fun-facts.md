@@ -1,32 +1,21 @@
 # Fun Facts
 
-- 🔵 Man City fan — always
-- 🍜 Big foodie — religiously on Beli
-- 🏔️ Into the outdoors — hiking, exploring, all of it
-- 🎬 Concerts, premieres, movies, TV shows — yes to all
-- ✈️ 20+ countries and counting — travel nerd through and through
-- 🤖 Obsessed with AI and startups — building and following both
+A few things about me outside of work.
 
-## Books
+## Into
 
-_Replace these examples with your real picks (format: `- Title — Author`)._
+AI & smart tech, adventure sports, travel, Bollywood music, stand-up comedy, fashion, video games, gym, soccer.
 
-- _(example)_ Zero to One — Peter Thiel
-- _(example)_ The Hard Thing About Hard Things — Ben Horowitz
-- _(example)_ Shoe Dog — Phil Knight
+## Languages
 
-## Movies
+- English (native/bilingual)
+- Hindi (native/bilingual)
+- French (elementary)
+- Punjabi (elementary)
+- Spanish (elementary)
 
-_Replace these examples with your real picks (format: `- Title`)._
+## Off the clock
 
-- _(example)_ Whiplash
-- _(example)_ The Social Network
-- _(example)_ Interstellar
-
-## Music
-
-_Replace these examples with your real picks (format: `- Artist / Track`)._
-
-- _(example)_ Fred again.. / Delilah
-- _(example)_ Kendrick Lamar / Money Trees
-- _(example)_ ODESZA / A Moment Apart
+- **Builds for fun:** I ship side projects on nights and weekends. Half my "fun" is a new repo.
+- **Gives back:** Pi Kappa Alpha philanthropy, LA Regional Food Bank, and earlier Tamanna Special School and Saakshar Mission literacy drives.
+- **Origin:** New Delhi to Los Angeles.

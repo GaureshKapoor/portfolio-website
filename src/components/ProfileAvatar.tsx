@@ -13,7 +13,7 @@ const ProfileAvatar = ({ className = "w-28 h-28 md:w-36 md:h-36" }: { className?
             <img
               src="/headshot.jpg"
               alt="Gauresh Kapoor"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+              className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.06]"
               onError={() => setOk(false)}
             />
           ) : (

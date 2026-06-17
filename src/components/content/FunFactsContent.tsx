@@ -1,31 +1,38 @@
 import { Reveal, RevealItem } from "@/components/Reveal";
 
-const facts = [
-  "Man City fan — always",
-  "Big foodie — religiously on Beli",
-  "Into the outdoors — hiking, exploring, all of it",
-  "Concerts, premieres, movies, TV shows — yes to all",
-  "20+ countries and counting — travel nerd through and through",
-  "Obsessed with AI and startups — building and following both",
+const interests = [
+  "AI & smart tech",
+  "adventure sports",
+  "travel",
+  "Bollywood music",
+  "stand-up comedy",
+  "fashion",
+  "video games",
+  "gym",
+  "soccer",
 ];
 
-// Templates — fill these in via content/fun-facts.md
-const books: { title: string; author: string }[] = [
-  { title: "Example Book Title", author: "Author Name" },
-  { title: "Another Great Read", author: "Author Name" },
-  { title: "On the Shelf", author: "Author Name" },
+const languages: { name: string; level: string }[] = [
+  { name: "English", level: "native/bilingual" },
+  { name: "Hindi", level: "native/bilingual" },
+  { name: "French", level: "elementary" },
+  { name: "Punjabi", level: "elementary" },
+  { name: "Spanish", level: "elementary" },
 ];
 
-const movies: { title: string }[] = [
-  { title: "Example Movie" },
-  { title: "Another Favorite" },
-  { title: "Rewatchable Classic" },
-];
-
-const music: { artist: string; track?: string }[] = [
-  { artist: "Example Artist", track: "Favorite Track" },
-  { artist: "Another Artist", track: "On Repeat" },
-  { artist: "Live Favorite" },
+const offTheClock: { label: string; text: string }[] = [
+  {
+    label: "Builds for fun",
+    text: "I ship side projects on nights and weekends. Half my \"fun\" is a new repo.",
+  },
+  {
+    label: "Gives back",
+    text: "Pi Kappa Alpha philanthropy, LA Regional Food Bank, and earlier Tamanna Special School and Saakshar Mission literacy drives.",
+  },
+  {
+    label: "Origin",
+    text: "New Delhi to Los Angeles.",
+  },
 ];
 
 const Subhead = ({ label }: { label: string }) => (
@@ -44,52 +51,43 @@ const FunFactsContent = () => {
       </RevealItem>
 
       <RevealItem>
-        <ul className="space-y-2.5">
-          {facts.map((f) => (
-            <li key={f} className="flex gap-3 text-[15px] text-foreground/85">
-              <span className="mt-[9px] h-1 w-1 rounded-full bg-primary shrink-0" />
-              <span>{f}</span>
-            </li>
+        <Subhead label="Into" />
+        <div className="mt-4 flex flex-wrap gap-2">
+          {interests.map((interest) => (
+            <span
+              key={interest}
+              className="rounded-md border border-border bg-secondary px-3 py-1 text-sm text-secondary-foreground"
+            >
+              {interest}
+            </span>
           ))}
-        </ul>
+        </div>
       </RevealItem>
 
       <RevealItem>
-        <Subhead label="Books" />
-        <ul className="mt-4 space-y-2.5">
-          {books.map((b) => (
-            <li key={b.title} className="flex gap-3 text-[15px] text-foreground/85">
+        <Subhead label="Languages" />
+        <div className="mt-4 flex flex-wrap gap-2">
+          {languages.map((lang) => (
+            <span
+              key={lang.name}
+              className="rounded-md border border-border bg-secondary px-3 py-1 text-sm text-secondary-foreground"
+            >
+              {lang.name}
+              <span className="ml-1.5 text-muted-foreground text-xs">{lang.level}</span>
+            </span>
+          ))}
+        </div>
+      </RevealItem>
+
+      <RevealItem>
+        <Subhead label="Off the clock" />
+        <ul className="mt-4 space-y-3">
+          {offTheClock.map((item) => (
+            <li key={item.label} className="flex gap-3 text-[15px] text-foreground/85">
               <span className="mt-[9px] h-1 w-1 rounded-full bg-primary shrink-0" />
               <span>
-                {b.title}
-                <span className="text-muted-foreground"> — {b.author}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </RevealItem>
-
-      <RevealItem>
-        <Subhead label="Movies" />
-        <ul className="mt-4 space-y-2.5">
-          {movies.map((m) => (
-            <li key={m.title} className="flex gap-3 text-[15px] text-foreground/85">
-              <span className="mt-[9px] h-1 w-1 rounded-full bg-primary shrink-0" />
-              <span>{m.title}</span>
-            </li>
-          ))}
-        </ul>
-      </RevealItem>
-
-      <RevealItem>
-        <Subhead label="Music" />
-        <ul className="mt-4 space-y-2.5">
-          {music.map((m) => (
-            <li key={m.artist} className="flex gap-3 text-[15px] text-foreground/85">
-              <span className="mt-[9px] h-1 w-1 rounded-full bg-primary shrink-0" />
-              <span>
-                {m.artist}
-                {m.track && <span className="text-muted-foreground"> — {m.track}</span>}
+                <span className="font-medium text-foreground">{item.label}:</span>{" "}
+                {item.text}
               </span>
             </li>
           ))}
