@@ -1,195 +1,289 @@
+import { useState, useRef, useEffect } from "react";
+import { ExternalLink } from "lucide-react";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { Reveal, RevealItem } from "@/components/Reveal";
 
-const experiences = [
+type Experience = {
+  company: string;
+  logo?: string;
+  link?: string;
+  role: string;
+  period: string;
+  location: string;
+  descriptor: string;
+  bullets?: string[];
+};
+
+const primary: Experience[] = [
   {
     company: "PwC",
-    role: "Associate, AI & Data Solutions — AI Product & Data",
+    logo: "/logos/pwc.png",
+    link: "https://www.pwc.com",
+    role: "Associate, AI & Data Solutions",
     period: "Jun 2025 – Present",
     location: "Los Angeles, CA",
+    descriptor:
+      "A global professional-services network. I drive AI-native product development inside the Technology & Data practice, leading client engagements and the operational systems behind them.",
     bullets: [
-      "Engineered and deployed an LLM-powered client delivery platform using React, LangChain, Anthropic API, and Azure/AWS, reducing deliverable production time from ~8 hours to 45 minutes through reusable agentic workflows",
-      "Designed AI-driven customer analytics dashboards integrating Databricks Delta Lake pipelines and LLM-based parsing for a $100B+ Financial Services client, reducing manual synthesis by 60% across 100K+ customer records",
-      "Created a financial carveout engine with PyTorch, SQL, and OCR pipelines to extract and reconcile data across 500+ legal/financial docs, supporting 3 PE diligence deals totaling $800M+ and reducing manual data extraction by ~70%",
-      "Drove AI innovation within Deals by integrating AI-native SOPs, boosting team throughput by ~200% across 15 members",
+      "Engineered and deployed an LLM-powered client delivery platform (React, LangChain, Anthropic API, Azure/AWS), cutting deliverable production from ~8 hours to 45 minutes via reusable agentic workflows.",
+      "Designed AI-driven customer analytics dashboards on Databricks Delta Lake pipelines with LLM-based parsing for a $100B+ Financial Services client, reducing manual synthesis by 60% across 100K+ customer records.",
+      "Built a financial carveout engine (PyTorch, SQL, OCR pipelines) to extract and reconcile data across 500+ legal/financial docs, supporting 3 PE diligence deals totaling $800M+ and cutting manual extraction by ~70%.",
+      "Drove AI adoption across Deals by embedding AI-native SOPs, lifting team throughput ~200% across 15 members.",
+    ],
+  },
+  {
+    company: "Wist.health",
+    logo: "/logos/wist.png",
+    link: "https://www.wist.health",
+    role: "Product & Strategy Lead",
+    period: "Jan 2025 – Sep 2025",
+    location: "Los Angeles, CA",
+    descriptor:
+      "B2B mental-health AI built under the Larta Heal.LA 2025 accelerator. I owned Product, Operations, Data, GTM, and Partnerships. Full build details live on the Projects page.",
+  },
+  {
+    company: "Zeta Global",
+    logo: "/logos/zeta.png",
+    link: "https://www.zetaglobal.com",
+    role: "Generative AI Product Intern",
+    period: "Jun 2024 – Aug 2024",
+    location: "San Francisco Bay Area",
+    descriptor:
+      "An AI-powered marketing-technology company using data and identity to personalize customer experiences at scale. On the AI Agents & Zeta Opportunity Engine team.",
+    bullets: [
+      "Automated a GPT feedback system with RLHF, improving AI agent response accuracy by 10% across client BI workflows.",
+      "Built a real-time retrieval interface between GenAI agents and LLM systems, cutting team debugging time by 25%.",
     ],
   },
   {
     company: "Zeta Global",
-    role: "Generative AI Product Intern — AI Agents & Zeta Opportunity Engine",
-    period: "Jun – Aug 2024",
-    location: "San Francisco, CA / New York, NY",
-    bullets: [
-      "Automated a GPT feedback system using RLHF, improving AI agent response accuracy by 10% across client BI workflows",
-      "Developed a real-time retrieval interface between GenAI agents and LLM systems, reducing team debugging time by 25%",
-    ],
-  },
-  {
-    company: "Clear (ClearTax)",
-    role: "Product Strategy & Analytics — FinTech SaaS Products",
-    period: "Jan – Jun 2024",
-    location: "New Delhi, India",
-    bullets: [
-      "Partnered with Business Ops team to modernize and simplify web app UI/UX, boosting net customers acquired by ~15%",
-      "Built a Python NLP model to extract tax data from images and PDFs with 68% accuracy across Clear's 130M-user platform",
-    ],
-  },
-  {
-    company: "Zeta Global",
-    role: "Data Science & Analytics Intern — GTM Analytics",
-    period: "Jun – Aug 2023",
+    logo: "/logos/zeta.png",
+    link: "https://www.zetaglobal.com",
+    role: "Data Science & Analytics Intern",
+    period: "Jun 2023 – Aug 2023",
     location: "New York, NY",
+    descriptor:
+      "GTM Analytics team, modeling customer behavior to drive product and operational decisions across global campaigns.",
     bullets: [
-      "Collaborated with NYC and Prague teams on GTM ad campaigns, analyzing 50M+ garment sales records in Python/SQL to model customer purchasing behavior, driving product and operational changes that improved monthly P&L by 8%",
+      "Partnered with NYC and Prague teams on GTM ad campaigns, modeling 50M+ garment-sales records in Python/SQL to drive product and operational changes that improved monthly P&L by 8%.",
+    ],
+  },
+  {
+    company: "Clear (from ClearTax)",
+    logo: "/logos/clear.png",
+    link: "https://www.clear.in",
+    role: "Product Strategy & Analytics",
+    period: "Jan 2024 – Jun 2024",
+    location: "New Delhi, India · Remote",
+    descriptor:
+      "India's leading fintech SaaS platform for tax, invoicing, and compliance, serving a 130M+ user base.",
+    bullets: [
+      "Modernized and simplified the web app UI/UX with the Business Ops team, boosting net customers acquired by ~15%.",
+      "Built a Python NLP model to extract tax data from images and PDFs at 68% accuracy across Clear's 130M-user platform.",
     ],
   },
 ];
 
-const education = {
-  school: "University of California, Los Angeles",
-  degrees: "B.S. Statistics & Data Science + B.A. Business Economics",
-  period: "Sep 2021 – Jun 2025",
-  gpa: "3.8 / 4.0",
-};
+const trajectory: Experience[] = [
+  {
+    company: "Atar Capital",
+    logo: "/logos/atar.png",
+    link: "https://www.atarcapital.com",
+    role: "Business Intelligence Analyst",
+    period: "Oct 2023 – Mar 2024",
+    location: "Los Angeles, CA",
+    descriptor: "A lower-middle-market private equity firm. Portfolio analytics across the acquisition pipeline.",
+  },
+  {
+    company: "Mobalytics",
+    logo: "/logos/mobalytics.png",
+    link: "https://mobalytics.gg",
+    role: "Strategy Analytics Intern",
+    period: "Jun 2023 – Aug 2023",
+    location: "Los Angeles, CA · Remote",
+    descriptor: "A gaming-performance platform. Competitive-gaming analytics and market-expansion research.",
+  },
+  {
+    company: "California NanoSystems Institute (UCLA)",
+    logo: "/logos/cnsi.png",
+    link: "https://cnsi.ucla.edu",
+    role: "Applied Product Analyst",
+    period: "Jan 2022 – Jun 2022",
+    location: "Los Angeles, CA",
+    descriptor: "UCLA's interdisciplinary nanoscience institute. R&D analytics and simulation modeling (MATLAB/LabVIEW optoelectronics).",
+  },
+  {
+    company: "GlobalHunt",
+    logo: "/logos/globalhunt.png",
+    link: "https://www.globalhunt.in",
+    role: "Data Science Intern",
+    period: "Jun 2021 – Aug 2021",
+    location: "New Delhi, India",
+    descriptor: "An India-based executive-search and recruitment firm. Data solutions and recruitment analytics dashboards.",
+  },
+];
 
-const TimelineCard = ({ exp, index }: { exp: typeof experiences[0]; index: number }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+const leadership = [
+  { role: "Co-Founder & External VP", org: "Bruin Finance Society", link: "https://bruinfinancesociety.org/", period: "Jan 2023 – Jun 2024", note: "Founded and scaled UCLA's premier undergrad business and finance org to 1,500+ members." },
+  { role: "Consulting Lead", org: "DataRes at UCLA", link: "https://ucladatares.com/", period: "Sep 2021 – Jun 2024", note: "Pro-bono data consulting for local businesses (Hellosaurus, EpiData, HomeDescription)." },
+  { role: "Vice President", org: "Google Developer Student Clubs (UCLA)", link: "https://gdg.community.dev/gdg-on-campus-university-of-california-los-angeles-los-angeles-united-states/", period: "Sep 2022 – Mar 2024", note: "Building products with Google technologies; led an 8-person board." },
+  { role: "Workshops Director", org: "UCLA Statistics Club", link: "https://statisticsucla.com/", period: "Sep 2021 – Aug 2023", note: "Technical workshops (Python, R, SQL) for 1,000+ students." },
+];
 
+const CompanyMark = ({ src, name }: { src?: string; name: string }) => {
+  const [ok, setOk] = useState(Boolean(src));
+  const initials = name.replace(/\(.*\)/, "").replace(/[^A-Za-z\s]/g, "").trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join("");
   return (
-    <div ref={ref} className="relative flex flex-col md:flex-row gap-4">
-      {/* Date column */}
-      <div className="md:w-[120px] shrink-0 flex md:justify-end items-start">
-        <motion.span
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-mono text-xs text-muted-foreground bg-background px-1 relative z-10"
-        >
-          {exp.period}
-        </motion.span>
-      </div>
-
-      {/* Dot — pulses when in view */}
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={isInView ? { scale: 1 } : {}}
-        transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.2 }}
-        className="absolute left-[4px] md:left-[117px] top-1 w-[7px] h-[7px] rounded-full bg-primary border-2 border-background z-10"
-      >
-        <motion.div
-          animate={isInView ? { scale: [1, 2.5, 1], opacity: [0.6, 0, 0] } : {}}
-          transition={{ duration: 1.2, delay: 0.4 }}
-          className="absolute inset-0 rounded-full bg-primary"
-        />
-      </motion.div>
-
-      {/* Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-        transition={{ duration: 0.6, delay: index * 0.05 + 0.15 }}
-        className="pl-6 md:pl-6 flex-1 group"
-      >
-        <motion.h3
-          className="text-lg font-semibold text-foreground"
-          whileHover={{ x: 4 }}
-          transition={{ type: "spring", stiffness: 400 }}
-        >
-          {exp.role}
-        </motion.h3>
-        <p className="text-primary font-medium text-sm">{exp.company} · {exp.location}</p>
-        <ul className="mt-3 space-y-2">
-          {exp.bullets.map((b, j) => (
-            <motion.li
-              key={j}
-              initial={{ opacity: 0, x: -10 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.3 + j * 0.08 }}
-              className="text-sm text-muted-foreground flex gap-2"
-            >
-              <motion.span
-                animate={isInView ? { opacity: [0, 1, 0.6] } : {}}
-                transition={{ duration: 0.6, delay: 0.4 + j * 0.08 }}
-                className="text-primary/60 mt-1 shrink-0"
-              >
-                ›
-              </motion.span>
-              <span>{b}</span>
-            </motion.li>
-          ))}
-        </ul>
-      </motion.div>
+    <div className={`w-10 h-10 rounded-md border border-border flex items-center justify-center overflow-hidden shrink-0 ${ok && src ? "bg-white" : "bg-card"}`}>
+      {ok && src ? (
+        <img src={src} alt={name} className="w-full h-full object-contain p-1" onError={() => setOk(false)} />
+      ) : (
+        <span className="font-mono text-xs text-muted-foreground">{initials}</span>
+      )}
     </div>
   );
 };
 
-const ExperienceContent = () => {
-  const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true });
-  const eduRef = useRef(null);
-  const eduInView = useInView(eduRef, { once: true, margin: "-50px" });
+const OrgLine = ({ exp }: { exp: Experience }) => (
+  <p className="text-sm text-muted-foreground mt-0.5 flex items-center gap-1.5 flex-wrap">
+    <span className="text-foreground/90">{exp.company}</span>
+    {exp.link && (
+      <a
+        href={exp.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${exp.company} website`}
+        className="text-muted-foreground hover:text-primary transition-colors"
+      >
+        <ExternalLink className="w-3.5 h-3.5" />
+      </a>
+    )}
+    <span className="text-muted-foreground/60">·</span>
+    <span>{exp.location}</span>
+  </p>
+);
 
+const TimelineEntry = ({
+  exp,
+  condensed,
+  containerRef,
+  onActive,
+}: {
+  exp: Experience;
+  condensed?: boolean;
+  containerRef: React.RefObject<HTMLDivElement>;
+  onActive: (top: number) => void;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const nodeRef = useRef<HTMLSpanElement>(null);
+  const active = useInView(ref, { margin: "-45% 0px -45% 0px" });
+  useEffect(() => {
+    if (active && nodeRef.current && containerRef.current) {
+      const top =
+        nodeRef.current.getBoundingClientRect().top -
+        containerRef.current.getBoundingClientRect().top +
+        6;
+      onActive(top);
+    }
+  }, [active]);
   return (
-    <div className="space-y-12">
-      <div ref={headerRef}>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-2xl md:text-3xl font-bold text-foreground mb-8"
-        >
-          Experience
-        </motion.h2>
+  <RevealItem className="group relative">
+    <span
+      ref={nodeRef}
+      className={`absolute -left-[27px] sm:-left-[30px] top-1.5 h-3 w-3 rounded-full border-2 bg-background transition-all duration-300 ${
+        active
+          ? "border-primary scale-[1.6] shadow-[0_0_10px_2px_hsl(var(--primary)/0.6)]"
+          : "border-primary/50 group-hover:scale-125"
+      }`}
+    />
+    <div ref={ref}>
+    <p className={`font-mono text-xs mb-2.5 transition-colors ${active ? "text-primary" : "text-primary/70"}`}>{exp.period}</p>
+    <div className="flex items-start gap-3">
+      <CompanyMark src={exp.logo} name={exp.company} />
+      <div className="min-w-0">
+        <h3 className={`font-display font-semibold text-foreground leading-snug ${condensed ? "text-base" : "text-lg"}`}>
+          {exp.role}
+        </h3>
+        <OrgLine exp={exp} />
       </div>
+    </div>
+    <p className="mt-3 text-sm text-muted-foreground italic leading-relaxed">{exp.descriptor}</p>
+    {exp.bullets && (
+      <ul className="mt-3 space-y-2.5">
+        {exp.bullets.map((b, j) => (
+          <li key={j} className="flex gap-3 text-[15px] text-foreground/80 leading-relaxed">
+            <span className="mt-[9px] h-1 w-1 rounded-full bg-primary/70 shrink-0" />
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+    </div>
+  </RevealItem>
+  );
+};
 
-      {/* Timeline */}
-      <div className="relative">
-        {/* Animated vertical line */}
+const ExperienceContent = () => {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [activeTop, setActiveTop] = useState(0);
+  return (
+    <Reveal className="space-y-12">
+      <RevealItem>
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">Experiences</h2>
+        <p className="text-muted-foreground mt-2">A lineage of building across AI, product, and data.</p>
+      </RevealItem>
+
+      <div ref={timelineRef} className="relative pl-7 sm:pl-8">
+        <div className="absolute left-[6px] sm:left-[7px] top-1.5 bottom-1.5 w-px bg-border" />
         <motion.div
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          style={{ transformOrigin: "top" }}
-          className="absolute left-[7px] md:left-[120px] top-0 bottom-0 w-px bg-border"
+          aria-hidden="true"
+          className="absolute left-[6px] sm:left-[7px] top-1.5 w-px bg-primary"
+          animate={{ height: Math.max(0, activeTop - 6) }}
+          transition={{ type: "spring", stiffness: 120, damping: 24 }}
         />
+        <motion.div
+          aria-hidden="true"
+          className="absolute left-[6.5px] sm:left-[7.5px] h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/40 blur-[6px]"
+          animate={{ top: activeTop }}
+          transition={{ type: "spring", stiffness: 120, damping: 24 }}
+        />
+        <div className="space-y-11">
+          {primary.map((exp, i) => (
+            <TimelineEntry key={`p-${i}`} exp={exp} containerRef={timelineRef} onActive={setActiveTop} />
+          ))}
 
-        <div className="space-y-10">
-          {experiences.map((exp, i) => (
-            <TimelineCard key={i} exp={exp} index={i} />
+          {trajectory.map((exp, i) => (
+            <TimelineEntry key={`t-${i}`} exp={exp} condensed containerRef={timelineRef} onActive={setActiveTop} />
           ))}
         </div>
       </div>
 
-      {/* Education */}
-      <div ref={eduRef}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={eduInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <h3 className="text-lg font-semibold text-foreground mb-4 font-mono">
-            <span className="text-primary/60">#</span> Education
-          </h3>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={eduInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            whileHover={{ borderColor: "hsl(var(--primary) / 0.4)" }}
-            className="relative flex flex-col md:flex-row gap-4 p-5 rounded-xl bg-card border border-border transition-colors"
-          >
-            <div className="md:w-[120px] shrink-0 flex md:justify-end">
-              <span className="font-mono text-xs text-muted-foreground">{education.period}</span>
-            </div>
-            <div className="flex-1">
-              <h4 className="text-lg font-semibold text-foreground">{education.school}</h4>
-              <p className="text-primary font-medium text-sm">{education.degrees}</p>
-              <p className="text-sm text-muted-foreground mt-1">GPA: {education.gpa}</p>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </div>
+      <RevealItem>
+        <h3 className="font-mono text-sm text-muted-foreground mb-4">
+          <span className="text-primary"># </span>Leadership
+        </h3>
+        <ul className="space-y-3">
+          {leadership.map((l) => (
+            <li key={l.org} className="flex flex-col sm:flex-row sm:items-baseline sm:gap-3">
+              <span className="font-mono text-xs text-primary sm:w-36 sm:shrink-0">{l.period}</span>
+              <span className="text-[15px] text-foreground/85">
+                <span className="font-medium text-foreground">{l.role}</span>,{" "}
+                <a
+                  href={l.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-foreground hover:text-primary underline decoration-primary/30 underline-offset-2 transition-colors"
+                >
+                  {l.org}
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                . {l.note}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </RevealItem>
+    </Reveal>
   );
 };
 

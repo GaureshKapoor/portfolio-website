@@ -1,128 +1,240 @@
-import { useNavigate } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useState } from "react";
+import { ChevronDown, ExternalLink } from "lucide-react";
+import { Reveal, RevealItem } from "@/components/Reveal";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import ProjectVisual from "@/components/ProjectVisuals";
 
 export const projects = [
   {
     slug: "vault",
     name: "Vault",
+    role: "Founder / Product Engineer",
     period: "Dec 2025 – Present",
-    description: "Full-stack AI platform for agentic ideation, task-planning and execution — built from 0 to 1.",
-    tech: ["Next.js", "Supabase", "Vercel", "Stripe", "LLMs"],
-    longDescription: "Shipped a full-stack AI platform built on Next.js, Supabase, and Vercel. Architected core systems across auth, data models, agent flows, billing (Stripe), analytics, and product UX from 0 to 1.",
+    hook: "An AI-native platform for agentic ideation, task planning, and execution.",
+    longDescription:
+      "Vault turns raw ideas into structured, actionable execution flows, built to make capturing a thought and shipping it feel like one motion. I'm building it solo from zero to one: full-stack on Next.js, Supabase, and Vercel, owning every core system end to end, auth, data models, agent workflows, billing, analytics, and product UX. It's where my engineer-plus-operator thesis gets tested in real time: design the architecture, ship the product, run the loop.",
+    stack: ["Next.js", "Supabase", "Vercel", "Stripe", "PostHog", "LLM / agent orchestration"],
+    link: "https://joinvault.app",
   },
   {
     slug: "ionava",
     name: "Ionava",
+    role: "Founding Engineer",
     period: "Sep 2025 – Present",
-    description: "Financial health & wellness platform backed by angel investors — production full-stack from the ground up.",
-    tech: ["React", "TypeScript", "Supabase", "Stripe", "Vercel"],
-    longDescription: "Launched a production full-stack platform, owning frontend architecture, backend services, data layers and security. Built stateful user flows and API integrations for financial-health planning, Health Score and Wellness Wallet functionality.",
+    hook: "A production fintech wellness platform pairing financial health with everyday well-being.",
+    longDescription:
+      "I launched Ionava as a full-stack production platform, owning the frontend architecture, backend services, data layers, and security. I built the stateful user flows and API integrations behind features like the Health Score and Wellness Wallet, translating financial-health planning into something a user actually returns to. Angel-backed and shipping.",
+    stack: ["Full-stack web", "API integrations", "Secure data layers"],
+    link: "",
   },
   {
     slug: "wist-health",
     name: "Wist Health",
-    period: "Jan – Jun 2025",
-    description: "B2B mental-health AI solutions — web and iOS app published on the App Store via the Larta Heal.LA 2025 accelerator.",
-    tech: ["React", "Swift (iOS)", "LLMs", "Supabase"],
-    longDescription: "Engineered a web and iOS AI wellness app with adaptive UX and personalized support flows. Implemented LLM-powered conversational workflows and session state management for guided user reflections.",
+    role: "Product & Strategy Lead",
+    period: "Jan 2025 – Sep 2025",
+    hook: "A web + iOS mental-health AI app, published on the App Store.",
+    longDescription:
+      "Wist is an AI-native wellness platform with adaptive UX and personalized support flows for guided mental-health journeys. I engineered the web and iOS apps and implemented the LLM-powered conversational workflows and session-state management that deliver context-aware reflections and in-app support. We shipped through TestFlight and the App Store, iterating on the core experience, and the work earned a $10K mental-health innovation grant. Built under the Larta Heal.LA 2025 accelerator.",
+    stack: ["iOS (Swift / Expo)", "Web", "LLM conversational flows", "Session-state management"],
+    link: "https://www.wist.health",
   },
   {
-    slug: "datares",
-    name: "DataRes Consulting",
-    period: "Sep 2021 – Mar 2024",
-    description: "Pro-bono data science consulting for local businesses through UCLA's premier consulting group.",
-    tech: ["Python", "R", "SQL", "Scikit-learn", "Tableau"],
-    longDescription: "Real Estate client: led team of 7 to build data-driven valuations for Zillow live listings using NLTK and sentiment analysis. EdTech platform: identified a 20% revenue uplift opportunity by analyzing user perks and ad timing across 7000+ users.",
+    slug: "nomadist",
+    name: "Nomadist",
+    role: "Builder",
+    period: "Feb 2025 – Apr 2025",
+    hook: "A GPT-4 gear concierge for vehicle adventurers.",
+    longDescription:
+      "Nomadist is a proprietary GPT-4 assistant that helps overlanders and vehicle adventurers find gear compatible with their vehicle and trip. I integrated structured fitment logic, expert data, and use-case prompting across thousands of data points to recommend lighting, racks, and rooftop-tent bundles. We launched a beta with KC HiLiTES targeting a 13% conversion lift and prototyped a white-label SaaS for B2B partners. Knapp Venture Competition Semi-Finalist (Consumer Software Track, 2025).",
+    stack: ["GPT-4", "Structured fitment logic", "Recommendation system"],
+    link: "",
+  },
+  {
+    slug: "frameforge",
+    name: "FrameForge",
+    role: "Builder",
+    period: "Feb 2025 – Mar 2025",
+    hook: "Generative-AI scene control for consistent AI video. 2nd Place, FBRC.ai x Luma AI Hackathon.",
+    longDescription:
+      "FrameForge improves video consistency across keyframes in generative filmmaking. I built a pipeline combining Blender for 3D scene assets, ControlNet plus SDXL for stylized rendering, and Luma AI's Ray2 APIs to generate cinematic sequences, letting directors input textual keyframe descriptions and get structured, high-quality clips with reduced randomness. Won 2nd in the Scene Control Challenge.",
+    stack: ["Blender", "ControlNet", "SDXL", "Luma Ray2 API"],
+    link: "https://www.youtube.com/watch?v=UQcJUsA9tSs",
+  },
+  {
+    slug: "ubun2",
+    name: "UBUN2",
+    role: "Builder",
+    period: "Mar 2023 – Sep 2023",
+    hook: "A web app + prison pen-pal system to cut LA-area recidivism. 1st Place, Innovate@UCLA.",
+    longDescription:
+      "UBUN2 is a social-change web application and pen-pal system aimed at cutting inmate recidivism in Greater LA by ~15%. Built with Wix and BeautifulSoup web scraping, using design-thinking frameworks and agile market research alongside Sony and JPL mentors. Took first place in the competition.",
+    stack: ["Wix", "BeautifulSoup", "Design thinking / agile"],
+    link: "",
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-  const navigate = useNavigate();
+const earlier = [
+  {
+    name: "DataRes Consulting",
+    period: "Sep 2021 – Mar 2024",
+    desc: "Real Estate: led a team of 7 building data-driven Zillow valuations with NLTK and sentiment analysis. EdTech: surfaced a 20% revenue-uplift opportunity across 7,000+ users.",
+    tech: ["Python", "NLTK", "Sentiment analysis"],
+    link: "",
+  },
+  {
+    name: "ACM AI · Cassava Leaf Disease Detection",
+    period: "Jan 2023 – Mar 2023",
+    desc: "PyTorch CNNs and transfer learning for crop-disease detection.",
+    tech: ["PyTorch", "CNNs", "Transfer learning"],
+    link: "",
+  },
+  {
+    name: "Driver Distraction Detector",
+    period: "2020",
+    desc: "Computer-vision CNN classifying driver attentiveness.",
+    tech: ["Keras", "TensorFlow"],
+    link: "https://bit.ly/driverai",
+  },
+  {
+    name: "Medical Imaging · Pneumonia Detection",
+    period: "2020",
+    desc: "CNN reading lung X-rays to flag pneumonia.",
+    tech: ["Keras", "TensorFlow"],
+    link: "https://bit.ly/medicalimagingai",
+  },
+];
 
-  return (
-    <motion.button
-      ref={ref}
-      initial={{ opacity: 0, y: 30, rotateX: 5 }}
-      animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -4, scale: 1.01, borderColor: "hsl(var(--primary) / 0.5)" }}
-      onClick={() => navigate(`/projects/${project.slug}`)}
-      className="text-left p-5 rounded-xl bg-card border border-border transition-all group relative overflow-hidden"
-    >
-      {/* Animated gradient overlay on hover */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-      />
-      
-      <div className="relative z-10">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-            {project.name}
-          </h3>
-          <motion.div
-            initial={{ opacity: 0, x: -5, y: 5 }}
-            animate={isInView ? { opacity: 0 } : {}}
-            whileHover={{ opacity: 1, x: 0, y: 0 }}
-            className="group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all"
-          >
-            <ArrowUpRight className="w-4 h-4 text-primary" />
-          </motion.div>
-        </div>
-        <p className="font-mono text-xs text-muted-foreground mb-3">{project.period}</p>
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{project.description}</p>
-        <div className="flex flex-wrap gap-1.5">
-          {project.tech.map((t, j) => (
-            <motion.span
-              key={t}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: index * 0.1 + 0.3 + j * 0.04 }}
-              className="px-2 py-0.5 text-[10px] rounded-full bg-primary/10 text-primary font-medium font-mono"
-            >
-              {t}
-            </motion.span>
-          ))}
-        </div>
-      </div>
-    </motion.button>
-  );
-};
+const Tag = ({ children }: { children: React.ReactNode }) => (
+  <span className="px-2 py-0.5 text-xs rounded-md bg-secondary text-secondary-foreground font-mono">
+    {children}
+  </span>
+);
 
 const ProjectsContent = () => {
-  const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true });
+  const [showEarlier, setShowEarlier] = useState(true);
+  const [selected, setSelected] = useState<(typeof projects)[number] | null>(null);
 
   return (
-    <div className="space-y-8">
-      <div ref={headerRef}>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-2xl md:text-3xl font-bold text-foreground mb-2"
-        >
-          Projects
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={headerInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.2 }}
-          className="text-muted-foreground mb-8"
-        >
-          Things I've built and contributed to.
-        </motion.p>
-      </div>
+    <Reveal className="space-y-12">
+      <RevealItem>
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">Projects</h2>
+        <p className="text-muted-foreground mt-2">Things I've built and shipped, zero to one.</p>
+      </RevealItem>
 
-      <div className="grid md:grid-cols-2 gap-5">
-        {projects.map((p, i) => (
-          <ProjectCard key={p.slug} project={p} index={i} />
-        ))}
-      </div>
-    </div>
+      <RevealItem>
+        <div className="grid sm:grid-cols-2 gap-4 auto-rows-fr">
+          {projects.map((p) => (
+            <button
+              key={p.slug}
+              onClick={() => setSelected(p)}
+              className="group flex flex-col h-full text-left p-5 rounded-xl border border-border bg-card transition-all duration-300 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_12px_40px_-16px_hsl(var(--primary)/0.4)]"
+            >
+              <ProjectVisual slug={p.slug} />
+              <div className="mt-4 flex items-baseline justify-between gap-2">
+                <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {p.name}
+                </h3>
+                <span className="font-mono text-xs text-muted-foreground shrink-0">{p.period}</span>
+              </div>
+              <p className="font-mono text-[11px] text-primary mt-0.5">{p.role}</p>
+              <p className="text-[15px] text-foreground/80 leading-relaxed mt-2">{p.hook}</p>
+              <div className="flex flex-wrap gap-1.5 mt-auto pt-4">
+                {p.stack.slice(0, 4).map((t) => (
+                  <Tag key={t}>{t}</Tag>
+                ))}
+              </div>
+            </button>
+          ))}
+        </div>
+      </RevealItem>
+
+      <RevealItem>
+        <button
+          onClick={() => setShowEarlier((s) => !s)}
+          className="flex items-center gap-2 font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <span className="text-primary"># </span>Earlier / ML Foundations
+          <ChevronDown className={`w-4 h-4 transition-transform ${showEarlier ? "rotate-180" : ""}`} />
+        </button>
+        {showEarlier && (
+          <div className="mt-4 grid sm:grid-cols-2 gap-3">
+            {earlier.map((e) => {
+              const inner = (
+                <>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <h4 className="font-medium text-foreground text-sm">{e.name}</h4>
+                    {e.link && <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />}
+                  </div>
+                  <p className="font-mono text-[11px] text-muted-foreground mt-0.5">{e.period}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-2">{e.desc}</p>
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {e.tech.map((t) => (
+                      <Tag key={t}>{t}</Tag>
+                    ))}
+                  </div>
+                </>
+              );
+              return e.link ? (
+                <a
+                  key={e.name}
+                  href={e.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group p-4 rounded-lg border border-border bg-card transition-colors hover:border-primary/40"
+                >
+                  {inner}
+                </a>
+              ) : (
+                <div key={e.name} className="group p-4 rounded-lg border border-border bg-card">
+                  {inner}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </RevealItem>
+
+      <Dialog open={!!selected} onOpenChange={(o) => { if (!o) setSelected(null); }}>
+        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
+          {selected && (
+            <div className="space-y-5">
+              <ProjectVisual slug={selected.slug} />
+              <div>
+                <DialogTitle className="font-display text-2xl font-bold text-foreground">
+                  {selected.name}
+                </DialogTitle>
+                <p className="font-mono text-xs text-primary mt-1">
+                  {selected.role} · {selected.period}
+                </p>
+              </div>
+              <p className="text-[15px] text-foreground/90 leading-relaxed">{selected.hook}</p>
+              <p className="text-[15px] text-muted-foreground leading-relaxed">{selected.longDescription}</p>
+              <div>
+                <h4 className="font-mono text-sm text-muted-foreground mb-3">
+                  <span className="text-primary"># </span>Tech Stack
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {selected.stack.map((t) => (
+                    <Tag key={t}>{t}</Tag>
+                  ))}
+                </div>
+              </div>
+              {selected.link && (
+                <a
+                  href={selected.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
+                >
+                  Visit {selected.name}
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </Reveal>
   );
 };
 

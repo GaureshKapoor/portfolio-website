@@ -2,7 +2,7 @@ import SectionLayout from "@/components/SectionLayout";
 import FeedContent from "@/components/content/FeedContent";
 
 const FeedPage = () => (
-  <SectionLayout>
+  <SectionLayout wide>
     <FeedContent />
   </SectionLayout>
 );
