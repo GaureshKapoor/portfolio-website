@@ -1,14 +1,19 @@
-import { Award, GraduationCap } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/Reveal";
 
-const honors = [
-  "Dean's Honor List (all 4 years)",
-  "William F. Sharpe Fellow",
-  "Start-Up Nation Fellow",
-  "UC Investments Academy Fellow",
+const uclaHonors = [
+  "William F. Sharpe Fellow (top 1% of UCLA Business/Tech undergraduates)",
+  "Anderson Innovation Challenge, Gen AI Track, 2025 - 2nd Place ($10,000 grant), Wist.health",
+  "Knapp Venture Competition, Consumer Software Track, 2025 - Semi-Finalist, Nomadist",
+  "FBRC.ai × Luma AI Creative Control Hackathon 2025 - 2nd Place, FrameForge",
+  "Innovate@UCLA Young Tech Professionals Challenge 2022 - 1st Place, UBUN2",
+  "Start-Up Nation Mentorship Fellow 2022-23 (Excellence in Student Leadership)",
+  "UBS Excel & Financial Modeling Workshop 2023",
+  "UC Investments Academy Fellow 2023-2025",
+  "Dean's Honor List, all 4 years",
 ];
 
-const activities = [
+const uclaActivities = [
   "Pi Kappa Alpha",
   "Bruin Finance Society",
   "DataRes Consulting",
@@ -48,11 +53,31 @@ const coursework = {
   ],
 };
 
-const stats = [
+const uclaStats = [
   { value: "3.8 / 4.0", label: "GPA" },
   { value: "Double Major", label: "Degree" },
   { value: "Sep 2021 – Jun 2025", label: "Dates" },
   { value: "1540", label: "SAT" },
+];
+
+const springdalesAccolades = [
+  "School Topper in classes 9th, 10th, 11th, and 12th.",
+  "Secured 98.2% in Class XII Board Examinations and 98.4% in Class X Board Examinations.",
+  "Academic Prize Winner for 6 consecutive years, scoring above 90%.",
+];
+
+const springdalesActivities = [
+  "School Prefect, Student Council",
+  "House Captain, Peace House",
+  "Executive Head, SPEX Computers Club",
+  "Executive Member, Pi Mathematics Club",
+  "Executive Member, Youth Entrepreneurship Society",
+];
+
+const springdalesStats = [
+  { value: "98.2%", label: "CBSE XII" },
+  { value: "98.4%", label: "CBSE X" },
+  { value: "2015 – 2021", label: "Dates" },
 ];
 
 const SchoolLogo = ({ src, fallback }: { src?: string; fallback?: boolean }) => (
@@ -62,6 +87,44 @@ const SchoolLogo = ({ src, fallback }: { src?: string; fallback?: boolean }) => 
     ) : (
       <img src={src} alt="" className="w-full h-full object-contain p-1" />
     )}
+  </div>
+);
+
+const StatToken = ({ value, label }: { value: string; label: string }) => (
+  <div className="rounded-md bg-secondary px-3 py-1.5 flex flex-col items-start">
+    <span className="font-semibold text-foreground text-sm leading-tight">{value}</span>
+    <span className="text-xs text-muted-foreground mt-0.5">{label}</span>
+  </div>
+);
+
+const Subhead = ({ children }: { children: React.ReactNode }) => (
+  <p className="font-mono text-sm text-muted-foreground mb-2.5">
+    <span className="text-primary"># </span>
+    {children}
+  </p>
+);
+
+const Bullets = ({ items }: { items: string[] }) => (
+  <ul className="space-y-2">
+    {items.map((it) => (
+      <li key={it} className="flex gap-3 text-[15px] text-foreground/85 leading-relaxed">
+        <span className="mt-[9px] h-1 w-1 rounded-full bg-primary shrink-0" />
+        <span>{it}</span>
+      </li>
+    ))}
+  </ul>
+);
+
+const Chips = ({ items }: { items: string[] }) => (
+  <div className="flex flex-wrap gap-2">
+    {items.map((a) => (
+      <span
+        key={a}
+        className="px-2.5 py-1 text-sm rounded-md bg-secondary text-secondary-foreground border border-border hover:border-primary/40 transition-colors"
+      >
+        {a}
+      </span>
+    ))}
   </div>
 );
 
@@ -77,6 +140,9 @@ const CourseTile = ({ course }: { course: string }) => {
   );
 };
 
+const node =
+  "absolute -left-[27px] sm:-left-[30px] top-1/2 -translate-y-1/2 h-3 w-3 rounded-full border-2 border-primary bg-background shadow-[0_0_8px_1px_hsl(var(--primary)/0.5)]";
+
 const EducationContent = () => {
   return (
     <Reveal className="space-y-10">
@@ -87,112 +153,102 @@ const EducationContent = () => {
         </p>
       </RevealItem>
 
-      {/* UCLA */}
-      <RevealItem>
-        <div className="rounded-lg border border-border bg-card p-6 border-l-4 border-l-primary">
-          <div className="mb-5 flex items-start gap-4">
-            <SchoolLogo src="/logos/ucla.png" />
-            <div className="min-w-0">
-              <h3 className="font-display text-xl font-bold text-foreground">
-                University of California, Los Angeles
-              </h3>
-              <p className="text-muted-foreground text-sm mt-0.5">Los Angeles, CA</p>
-              <p className="text-primary font-medium mt-2">
-                B.S. Statistics &amp; Data Science and B.A. Business Economics
-              </p>
+      <div className="relative pl-7 sm:pl-8 space-y-8">
+        <div className="absolute left-[6px] sm:left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-primary/60 via-primary/35 to-primary/60" />
+
+        {/* UCLA */}
+        <RevealItem className="relative">
+          <span className={node} />
+          <div className="rounded-lg border border-border bg-card p-6">
+            <div className="mb-5 flex items-start gap-4">
+              <SchoolLogo src="/logos/ucla.png" />
+              <div className="min-w-0">
+                <h3 className="font-display text-xl font-bold text-foreground">
+                  University of California, Los Angeles
+                </h3>
+                <p className="text-muted-foreground text-sm mt-0.5">Los Angeles, CA</p>
+                <div className="mt-2 space-y-1">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <p className="text-primary font-medium">Bachelor of Science in Statistics &amp; Data Science</p>
+                    <span className="font-mono text-xs text-muted-foreground shrink-0">(B.S.)</span>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-3">
+                    <p className="text-primary font-medium">Bachelor of Arts in Business Economics</p>
+                    <span className="font-mono text-xs text-muted-foreground shrink-0">(B.A.)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-3 mb-6">
+              {uclaStats.map((s) => (
+                <StatToken key={s.label} value={s.value} label={s.label} />
+              ))}
+            </div>
+
+            <div className="mb-6">
+              <Subhead>Honors &amp; Awards</Subhead>
+              <Bullets items={uclaHonors} />
+            </div>
+
+            <div>
+              <Subhead>Activities</Subhead>
+              <Chips items={uclaActivities} />
             </div>
           </div>
+        </RevealItem>
 
-          <div className="flex flex-wrap gap-3 mb-6">
-            {stats.map((s) => (
-              <div key={s.label} className="rounded-md bg-secondary px-3 py-1.5 flex flex-col items-start">
-                <span className="font-semibold text-foreground text-sm leading-tight">{s.value}</span>
-                <span className="text-xs text-muted-foreground mt-0.5">{s.label}</span>
+        {/* Coursework */}
+        <RevealItem>
+          <Subhead>Relevant Coursework</Subhead>
+          <div className="space-y-6">
+            {Object.entries(coursework).map(([group, courses]) => (
+              <div key={group}>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2.5">{group}</p>
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
+                  {courses.map((c) => (
+                    <CourseTile key={c} course={c} />
+                  ))}
+                </div>
               </div>
             ))}
           </div>
+        </RevealItem>
 
-          <div className="mb-5">
-            <p className="font-mono text-sm text-muted-foreground mb-2">
-              <span className="text-primary"># </span>Honors
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {honors.map((h) => (
-                <span
-                  key={h}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-sm rounded-md bg-secondary text-secondary-foreground border border-border hover:border-primary/40 hover:text-foreground transition-colors"
-                >
-                  <Award className="w-3 h-3 text-primary flex-shrink-0" />
-                  {h}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <p className="font-mono text-sm text-muted-foreground mb-2">
-              <span className="text-primary"># </span>Activities
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {activities.map((a) => (
-                <span key={a} className="px-2 py-0.5 text-xs rounded-md bg-secondary/60 text-muted-foreground border border-border">
-                  {a}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </RevealItem>
-
-      {/* Coursework */}
-      <RevealItem>
-        <p className="font-mono text-sm text-muted-foreground mb-4">
-          <span className="text-primary"># </span>Relevant Coursework
-        </p>
-        <div className="space-y-6">
-          {Object.entries(coursework).map(([group, courses]) => (
-            <div key={group}>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2.5">{group}</p>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
-                {courses.map((c) => (
-                  <CourseTile key={c} course={c} />
-                ))}
+        {/* Springdales — same structure as UCLA */}
+        <RevealItem className="relative">
+          <span className={node} />
+          <div className="rounded-lg border border-border bg-card p-6">
+            <div className="mb-5 flex items-start gap-4">
+              <SchoolLogo src="/logos/springdales.png" />
+              <div className="min-w-0">
+                <h3 className="font-display text-xl font-bold text-foreground">Springdales School, Dhaula Kuan</h3>
+                <p className="text-muted-foreground text-sm mt-0.5">New Delhi, India</p>
+                <p className="text-primary font-medium mt-2">CBSE Diploma</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Mathematics, English, Computer Science, Physics, Chemistry
+                </p>
               </div>
             </div>
-          ))}
-        </div>
-      </RevealItem>
 
-      {/* Springdales — same card format as UCLA */}
-      <RevealItem>
-        <div className="rounded-lg border border-border bg-card p-6">
-          <div className="flex items-start gap-4">
-            <SchoolLogo fallback />
-            <div className="min-w-0">
-              <h3 className="font-display text-lg font-bold text-foreground">Springdales School, Dhaula Kuan</h3>
-              <p className="text-muted-foreground text-sm mt-0.5">New Delhi, India</p>
-              <div className="flex flex-wrap gap-3 mt-3">
-                <div className="rounded-md bg-secondary px-3 py-1.5 flex flex-col items-start">
-                  <span className="font-semibold text-foreground text-sm leading-tight">98.2%</span>
-                  <span className="text-xs text-muted-foreground mt-0.5">CBSE XII</span>
-                </div>
-                <div className="rounded-md bg-secondary px-3 py-1.5 flex flex-col items-start">
-                  <span className="font-semibold text-foreground text-sm leading-tight">98.4%</span>
-                  <span className="text-xs text-muted-foreground mt-0.5">CBSE X</span>
-                </div>
-                <div className="rounded-md bg-secondary px-3 py-1.5 flex flex-col items-start">
-                  <span className="font-semibold text-foreground text-sm leading-tight">2015 – 2021</span>
-                  <span className="text-xs text-muted-foreground mt-0.5">Dates</span>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-                School Topper (grades 9 to 12), School Prefect &amp; Student Council, House Captain
-                (Peace House), Executive Head of SPEX Computers Club.
-              </p>
+            <div className="flex flex-wrap gap-3 mb-6">
+              {springdalesStats.map((s) => (
+                <StatToken key={s.label} value={s.value} label={s.label} />
+              ))}
+            </div>
+
+            <div className="mb-6">
+              <Subhead>Academic Accolades</Subhead>
+              <Bullets items={springdalesAccolades} />
+            </div>
+
+            <div>
+              <Subhead>Activities &amp; Societies</Subhead>
+              <Chips items={springdalesActivities} />
             </div>
           </div>
-        </div>
-      </RevealItem>
+        </RevealItem>
+      </div>
     </Reveal>
   );
 };
