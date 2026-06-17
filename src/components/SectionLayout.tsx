@@ -41,7 +41,7 @@ const SectionLayout = ({ children, title, wide }: SectionLayoutProps) => {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-0.5">
-            {sections.map((s) => {
+            {sections.filter((s) => s.path !== "/contact").map((s) => {
               const active = location.pathname.startsWith(s.path);
               return (
                 <button
@@ -83,7 +83,7 @@ const SectionLayout = ({ children, title, wide }: SectionLayoutProps) => {
             className="md:hidden fixed top-[57px] inset-x-0 z-30 bg-background/95 backdrop-blur-md border-b border-border overflow-hidden"
           >
             <div className="px-6 py-3 flex flex-col gap-1">
-              {sections.map((s) => {
+              {sections.filter((s) => s.path !== "/contact").map((s) => {
                 const active = location.pathname.startsWith(s.path);
                 return (
                   <button
