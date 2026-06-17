@@ -3,10 +3,12 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/Reveal";
 
-// Skills mapped to icon filenames (undefined = text tile)
+// Skills mapped to icon filenames. `colored` = render the SVG as-is (no invert);
+// the default mono icons are white SVGs inverted to match the theme.
 type Skill = {
   name: string;
-  icon?: string;
+  icon: string;
+  colored?: boolean;
 };
 
 const skillGroups: { label: string; skills: Skill[] }[] = [
@@ -17,7 +19,7 @@ const skillGroups: { label: string; skills: Skill[] }[] = [
       { name: "TypeScript", icon: "typescript" },
       { name: "JavaScript", icon: "javascript" },
       { name: "Swift", icon: "swift" },
-      { name: "SQL" },
+      { name: "MySQL", icon: "mysql" },
       { name: "R", icon: "r" },
       { name: "C++", icon: "cplusplus" },
     ],
@@ -43,11 +45,10 @@ const skillGroups: { label: string; skills: Skill[] }[] = [
       { name: "Docker", icon: "docker" },
       { name: "Vercel", icon: "vercel" },
       { name: "GitHub Actions", icon: "githubactions" },
-      { name: "Git", icon: "git" },
       { name: "GitHub", icon: "github" },
-      { name: "AWS" },
-      { name: "GCP" },
-      { name: "Azure" },
+      { name: "AWS", icon: "amazonwebservices", colored: true },
+      { name: "Google Cloud", icon: "googlecloud", colored: true },
+      { name: "Azure", icon: "azure", colored: true },
     ],
   },
   {
@@ -60,13 +61,6 @@ const skillGroups: { label: string; skills: Skill[] }[] = [
       { name: "Jupyter", icon: "jupyter" },
       { name: "Ollama", icon: "ollama" },
       { name: "OpenRouter", icon: "openrouter" },
-      { name: "LLMs & Agents" },
-      { name: "LangChain" },
-      { name: "RLHF" },
-      { name: "NLP" },
-      { name: "Neural Networks" },
-      { name: "Computer Vision" },
-      { name: "Time Series" },
     ],
   },
   {
@@ -77,10 +71,6 @@ const skillGroups: { label: string; skills: Skill[] }[] = [
       { name: "Sentry", icon: "sentry" },
       { name: "Linear", icon: "linear" },
       { name: "Jira", icon: "jira" },
-      { name: "Databricks" },
-      { name: "Tableau" },
-      { name: "A/B Testing" },
-      { name: "Excel" },
     ],
   },
 ];
@@ -205,18 +195,12 @@ function DockTile({ skill, mouseX }: {
         style={{ scale, width: BASE_SIZE, height: BASE_SIZE }}
         className="flex items-center justify-center rounded-xl border border-border bg-card cursor-default select-none overflow-hidden shrink-0"
       >
-        {skill.icon ? (
-          <img
-            src={`/skill-icons/${skill.icon}.svg`}
-            alt={skill.name}
-            className="w-7 h-7 invert dark:invert-0"
-            draggable={false}
-          />
-        ) : (
-          <span className="text-[10px] font-mono font-medium text-muted-foreground text-center leading-tight px-1.5">
-            {skill.name}
-          </span>
-        )}
+        <img
+          src={`/skill-icons/${skill.icon}.svg`}
+          alt={skill.name}
+          className={`w-7 h-7 ${skill.colored ? "" : "invert dark:invert-0"}`}
+          draggable={false}
+        />
       </motion.div>
     </div>
   );
@@ -236,7 +220,7 @@ function SkillDock({ skills }: { skills: Skill[] }) {
   return (
     <div
       ref={rowRef}
-      className="flex flex-wrap gap-3 pt-10"
+      className="flex flex-wrap justify-center gap-3 pt-6"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -309,15 +293,15 @@ function BuildJourney() {
 
 const SkillsContent = () => {
   return (
-    <Reveal className="space-y-12">
-      <RevealItem>
+    <Reveal className="space-y-8">
+      <RevealItem className="text-center">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">Skills</h2>
-        <p className="text-muted-foreground mt-2">The stack I build with - across AI, product, and data.</p>
+        <p className="text-muted-foreground mt-2">The stack I build with, across AI, product, and data.</p>
       </RevealItem>
 
       {skillGroups.map((group) => (
         <RevealItem key={group.label}>
-          <h3 className="font-mono text-sm text-muted-foreground">
+          <h3 className="font-mono text-sm text-muted-foreground text-center">
             <span className="text-primary"># </span>{group.label}
           </h3>
           <SkillDock skills={group.skills} />
