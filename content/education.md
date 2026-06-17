@@ -8,46 +8,88 @@ Academic foundation across data science, statistics, economics, and business.
 
 Los Angeles, CA
 
-**B.S. Statistics & Data Science and B.A. Business Economics**
+- **Bachelor of Science in Statistics & Data Science** (B.S.)
+- **Bachelor of Arts in Business Economics** (B.A.)
 
 | Stat | Value |
 |---|---|
 | GPA | 3.8 / 4.0 |
-| Degree Type | Double Major |
+| Degree | Double Major |
 | Dates | Sep 2021 - Jun 2025 |
-| Score | SAT 1540 |
+| SAT | 1540 |
 
-### Honors
+### Honors & Awards
 
-- Dean's Honor List (all 4 years)
-- William F. Sharpe Fellow
-- Start-Up Nation Fellow
-- UC Investments Academy Fellow
+- William F. Sharpe Fellow (top 1% of UCLA Business/Tech undergraduates)
+- Anderson Innovation Challenge, Gen AI Track, 2025 - 2nd Place ($10,000 grant), Wist.health
+- Knapp Venture Competition, Consumer Software Track, 2025 - Semi-Finalist, Nomadist
+- FBRC.ai x Luma AI Creative Control Hackathon 2025 - 2nd Place, FrameForge
+- Innovate@UCLA Young Tech Professionals Challenge 2022 - 1st Place, UBUN2
+- Start-Up Nation Mentorship Fellow 2022-23 (Excellence in Student Leadership)
+- UBS Excel & Financial Modeling Workshop 2023
+- UC Investments Academy Fellow 2023-2025
+- Dean's Honor List, all 4 years
 
 ### Activities
 
 Pi Kappa Alpha, Bruin Finance Society, DataRes Consulting, Google Developer Student Clubs, Statistics & Data Science Club, CNSI Research, DevX, Bruin Entrepreneurs
 
+---
+
 ### Relevant Coursework
 
-**# Statistics & ML**
-Math Statistics & Probability (100A/B), Linear Models (100C), Statistical Models & Data Mining (101C), Design & Analysis of Experiments (101B), Data Analysis & Regression (101A), Computation & Optimization (102B), Computational Statistics with R (102A), Monte Carlo Methods (102C), Statistical Consulting Capstone (140XP/141XP)
+#### Statistics & ML
 
-**# CS & Math**
-Intro CS in C++ (CS 31), Data Structures & Algorithms (CS 32), Linear Algebra (MATH 33A), Multivariable Calculus (MATH 32A/B), Single-variable Calculus (MATH 31A/B)
+- Mathematical Statistics & Probability
+- Linear Models
+- Statistical Models & Data Mining
+- Design & Analysis of Experiments
+- Computational Statistics with R
+- Statistical Consulting Capstone
 
-**# Economics & Finance**
-Advanced Econometrics (143), Econometrics (103), Data Science for Economists (104/4L), Finance (106F), Investments (106V), Money & Banking (160), Micro/Macro Theory (101/102)
+#### CS & Math
 
-**# Business**
-Foundations of Business & Entrepreneurship (MGMT 159), Principles of Accounting (1A/1B), Personal Financial Health (168), Business & Social Policy Writing (ENGCOMP 131B)
+- Data Structures & Algorithms
+- Intro to Computer Science (C++)
+- Linear Algebra
+- Multivariable Calculus
+
+#### Economics & Finance
+
+- Advanced Econometrics
+- Econometrics
+- Data Science for Economists
+- Investments
+- Money & Banking
+
+#### Business
+
+- Foundations of Business & Entrepreneurship
+- Principles of Accounting
+- Personal Financial Health
 
 ---
 
 ## Springdales School, Dhaula Kuan
 
-New Delhi · 2015 - 2021
+New Delhi, India
 
-CBSE: 98.2% (XII), 98.4% (X)
+**CBSE Diploma**
 
-School Topper grades 9 to 12, School Prefect & Student Council, House Captain Peace House, Executive Head SPEX Computers Club.
+Subjects: Mathematics, English, Computer Science, Physics, Chemistry
+
+| Stat | Value |
+|---|---|
+| CBSE XII | 98.2% |
+| CBSE X | 98.4% |
+| Dates | 2015 - 2021 |
+
+### Academic Accolades
+
+- School Topper in classes 9th, 10th, 11th, and 12th.
+- Secured 98.2% in Class XII Board Examinations and 98.4% in Class X Board Examinations.
+- Academic Prize Winner for 6 consecutive years, scoring above 90%.
+
+### Activities & Societies
+
+School Prefect, Student Council; House Captain, Peace House; Executive Head, SPEX Computers Club; Executive Member, Pi Mathematics Club; Executive Member, Youth Entrepreneurship Society

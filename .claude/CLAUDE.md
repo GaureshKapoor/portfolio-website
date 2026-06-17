@@ -18,6 +18,28 @@ The cause is almost always an orphaned `vite`/`esbuild` process from a prior ses
 3. Nuclear option (after package changes or weird state): `npm run reinstall`
 Always stop the dev server with Ctrl+C (clean shutdown) rather than closing the terminal, so esbuild children don't orphan.
 
+### Install / build failures — the ONE clean-install workflow (do this, don't improvise)
+Symptoms we've actually hit and must not repeat:
+- `Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'esbuild' imported from .../vite/dist/node/cli.js` — esbuild missing entirely.
+- `You installed esbuild for another platform... @esbuild/<platform> package is present but this platform needs @esbuild/<platform>` — esbuild's optional platform binary is missing/mismatched.
+
+**Root cause:** `node_modules` left in a half-written state. The two ways we caused it: (a) interrupting an `npm install` partway, and (b) **running more than one install at once** (e.g. firing a background `npm install` and then another) — concurrent installs race on `node_modules` and drop esbuild's optional platform package (`@esbuild/darwin-arm64`).
+
+**Hard rules:**
+- **Never run two installs concurrently.** One install at a time, start to finish. Before starting one, confirm none is running: `ps aux | grep -Ec "[n]pm (install|ci)"` should be `0` (or `1`, the grep itself).
+- **Prefer `npm ci` over `npm install`** for recovery — it wipes `node_modules` and installs exactly from `package-lock.json` (deterministic, ~7s here). Use plain `npm install` only when intentionally changing deps.
+- Do not `bun install`/`yarn`/`pnpm` (see package-manager note above) — only `package-lock.json` should exist.
+
+**Canonical clean-install recovery (copy/paste, single sequence):**
+```bash
+pkill -f "npm install"; pkill -f "npm ci"; pkill -f vite; pkill -f esbuild; sleep 2
+rm -rf node_modules node_modules/.vite dist
+npm ci
+ls node_modules/@esbuild/darwin-arm64/package.json node_modules/esbuild/package.json   # both must exist
+npm run build                                                                            # must pass before any push
+```
+This is the smooth path: kill strays → wipe → one deterministic `npm ci` → verify esbuild + build. If `npm ci` complains the lockfile is out of sync with `package.json`, that's a real dep change — fix `package.json`/lockfile, don't paper over it with `npm install --force`.
+
 ## Repo Structure
 
 ```

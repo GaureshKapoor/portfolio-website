@@ -1,42 +1,61 @@
 # Skills & Tech Stack
 
-## AI / ML
-
-LLMs & Agentic Systems, LangChain, RLHF, NLP, Neural Networks, Computer Vision (OpenCV), Time Series
-
-## Programming
-
-Python (PyTorch, TensorFlow, Pandas, Scikit-learn), SQL, TypeScript, JavaScript, Swift (iOS), R, C++
-
-## Backend & Infra
-
-FastAPI, PostgreSQL, MongoDB, Supabase, Azure, AWS, GCP, GitHub Actions, Docker, Vercel
-
-## Developer Tools
-
-React/Next.js, Expo (React Native), Jupyter, Stripe, Sentry, CodeRabbit, Git/GitHub, macOS/Linux
-
-## Product & Analytics
-
-A/B Testing, Databricks, Tableau, Excel, Linear, JIRA, PostHog, Openrouter, Hugging Face
+The stack I build with, across AI, product, and data.
 
 ---
 
-## The build journey
+## Languages
 
-How I actually move from idea to shipped.
+Python, TypeScript, JavaScript, Swift, MySQL, R, C++
 
-### Think / Spec
-ChatGPT - Claude
+## Frontend & Mobile
 
-### Design & Scaffold
-Lovable - Cursor - Warp - GitHub - Claude Code / Codex - CodeRabbit
+React, Next.js, Tailwind CSS, shadcn/ui, Vite, Expo
 
-### Build (frontend)
-React - Vite / Next.js - TypeScript - Tailwind CSS - shadcn/ui - Expo + React Native - Swift
+## Backend & Infrastructure
 
-### Build (backend & AI)
-Supabase - Openrouter - Vercel
+FastAPI, PostgreSQL, MongoDB, Supabase, Docker, Vercel, GitHub Actions, GitHub, AWS, Google Cloud, Azure
 
-### Ship & Run
-Stripe - PostHog - Sentry - Mailchimp
+## ML & AI Tooling
+
+PyTorch, TensorFlow, Scikit-learn, Hugging Face, Jupyter, Ollama, OpenRouter
+
+## Product & Analytics
+
+PostHog, Stripe, Sentry, Linear, Jira
+
+---
+
+## The Build Journey
+
+How I move from idea to shipped.
+
+### 01 - Think / Spec
+
+Define the problem and architecture.
+
+Tools: Claude, ChatGPT
+
+### 02 - Design & Scaffold
+
+Structure the codebase and UI foundation.
+
+Tools: Lovable, Cursor, Warp, GitHub, Claude Code, CodeRabbit
+
+### 03 - Build (Frontend)
+
+Ship UI, interactions, and client logic.
+
+Tools: React, Vite / Next.js, TypeScript, Tailwind CSS, shadcn/ui, Expo, Swift
+
+### 04 - Build (Backend & AI)
+
+APIs, databases, and agentic layers.
+
+Tools: Supabase, FastAPI, OpenRouter, Vercel
+
+### 05 - Ship & Run
+
+Payments, observability, and growth.
+
+Tools: Stripe, PostHog, Sentry, Mailchimp

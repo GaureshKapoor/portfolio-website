@@ -1,34 +1,121 @@
 # Experience
 
-## PwC
+A lineage of building across AI, product, and data.
 
-**Associate, AI & Data Solutions — AI Product & Data**
+---
+
+## Primary Roles
+
+### PwC
+
+**Associate, AI & Data Solutions**
 Jun 2025 – Present · Los Angeles, CA
+Logo: `/logos/pwc.png` · [pwc.com](https://www.pwc.com)
 
-- Engineered and deployed an LLM-powered client delivery platform using React, LangChain, Anthropic API, and Azure/AWS, reducing deliverable production time from ~8 hours to 45 minutes through reusable agentic workflows.
-- Designed AI-driven customer analytics dashboards integrating Databricks Delta Lake pipelines and LLM-based parsing for a $100B+ Financial Services client, reducing manual synthesis by 60% across 100K+ customer records.
-- Created a financial carveout engine with PyTorch, SQL, and OCR pipelines to extract and reconcile data across 500+ legal/financial docs, supporting 3 PE diligence deals totaling $800M+ and reducing manual data extraction by ~70%.
-- Drove AI innovation within Deals by integrating AI-native SOPs, boosting team throughput by ~200% across 15 members.
+*A global professional-services network. I drive AI-native product development inside the Technology & Data practice, leading client engagements and the operational systems behind them.*
 
-## Zeta Global
+- Engineered and deployed an LLM-powered client delivery platform (React, LangChain, Anthropic API, Azure/AWS), cutting deliverable production from ~8 hours to 45 minutes via reusable agentic workflows.
+- Designed AI-driven customer analytics dashboards on Databricks Delta Lake pipelines with LLM-based parsing for a $100B+ Financial Services client, reducing manual synthesis by 60% across 100K+ customer records.
+- Built a financial carveout engine (PyTorch, SQL, OCR pipelines) to extract and reconcile data across 500+ legal/financial docs, supporting 3 PE diligence deals totaling $800M+ and cutting manual extraction by ~70%.
+- Drove AI adoption across Deals by embedding AI-native SOPs, lifting team throughput ~200% across 15 members.
 
-**Generative AI Product Intern — AI Agents & Zeta Opportunity Engine**
-Jun – Aug 2024 · San Francisco, CA / New York, NY
+---
 
-- Automated a GPT feedback system using RLHF, improving AI agent response accuracy by 10% across client BI workflows.
-- Developed a real-time retrieval interface between GenAI agents and LLM systems, reducing team debugging time by 25%.
+### Wist.health
 
-## Clear (ClearTax)
+**Product & Strategy Lead**
+Jan 2025 – Sep 2025 · Los Angeles, CA
+Logo: `/logos/wist.png` · [wist.health](https://www.wist.health)
 
-**Product Strategy & Analytics — FinTech SaaS Products**
-Jan – Jun 2024 · New Delhi, India
+*B2B mental-health AI built under the Larta Heal.LA 2025 accelerator. I owned Product, Operations, Data, GTM, and Partnerships. Full build details live on the Projects page.*
 
-- Partnered with Business Ops team to modernize and simplify web app UI/UX, boosting net customers acquired by ~15%.
-- Built a Python NLP model to extract tax data from images and PDFs with 68% accuracy across Clear's 130M-user platform.
+---
 
-## Zeta Global
+### Zeta Global
 
-**Data Science & Analytics Intern — GTM Analytics**
-Jun – Aug 2023 · New York, NY
+**Generative AI Product Intern**
+Jun 2024 – Aug 2024 · San Francisco Bay Area
+Logo: `/logos/zeta.png` · [zetaglobal.com](https://www.zetaglobal.com)
 
-- Collaborated with NYC and Prague teams on GTM ad campaigns, analyzing 50M+ garment sales records in Python/SQL to model customer purchasing behavior, driving product and operational changes that improved monthly P&L by 8%.
+*An AI-powered marketing-technology company using data and identity to personalize customer experiences at scale. On the AI Agents & Zeta Opportunity Engine team.*
+
+- Automated a GPT feedback system with RLHF, improving AI agent response accuracy by 10% across client BI workflows.
+- Built a real-time retrieval interface between GenAI agents and LLM systems, cutting team debugging time by 25%.
+
+---
+
+### Zeta Global
+
+**Data Science & Analytics Intern**
+Jun 2023 – Aug 2023 · New York, NY
+Logo: `/logos/zeta.png` · [zetaglobal.com](https://www.zetaglobal.com)
+
+*GTM Analytics team, modeling customer behavior to drive product and operational decisions across global campaigns.*
+
+- Partnered with NYC and Prague teams on GTM ad campaigns, modeling 50M+ garment-sales records in Python/SQL to drive product and operational changes that improved monthly P&L by 8%.
+
+---
+
+### Clear (from ClearTax)
+
+**Product Strategy & Analytics**
+Jan 2024 – Jun 2024 · New Delhi, India - Remote
+Logo: `/logos/clear.png` · [clear.in](https://www.clear.in)
+
+*India's leading fintech SaaS platform for tax, invoicing, and compliance, serving a 130M+ user base.*
+
+- Modernized and simplified the web app UI/UX with the Business Ops team, boosting net customers acquired by ~15%.
+- Built a Python NLP model to extract tax data from images and PDFs at 68% accuracy across Clear's 130M-user platform.
+
+---
+
+## Trajectory
+
+### Atar Capital
+
+**Business Intelligence Analyst**
+Oct 2023 – Mar 2024 · Los Angeles, CA
+Logo: `/logos/atar.png` · [atarcapital.com](https://www.atarcapital.com)
+
+*A lower-middle-market private equity firm. Portfolio analytics across the acquisition pipeline.*
+
+---
+
+### Mobalytics
+
+**Strategy Analytics Intern**
+Jun 2023 – Aug 2023 · Los Angeles, CA - Remote
+Logo: `/logos/mobalytics.png` · [mobalytics.gg](https://mobalytics.gg)
+
+*A gaming-performance platform. Competitive-gaming analytics and market-expansion research.*
+
+---
+
+### California NanoSystems Institute (UCLA)
+
+**Applied Product Analyst**
+Jan 2022 – Jun 2022 · Los Angeles, CA
+Logo: `/logos/cnsi.png` · [cnsi.ucla.edu](https://cnsi.ucla.edu)
+
+*UCLA's interdisciplinary nanoscience institute. R&D analytics and simulation modeling (MATLAB/LabVIEW optoelectronics).*
+
+---
+
+### GlobalHunt
+
+**Data Science Intern**
+Jun 2021 – Aug 2021 · New Delhi, India
+Logo: `/logos/globalhunt.png` · [globalhunt.in](https://www.globalhunt.in)
+
+*An India-based executive-search and recruitment firm. Data solutions and recruitment analytics dashboards.*
+
+---
+
+## Leadership
+
+| Period | Role | Organization | Note |
+|---|---|---|---|
+| Jan 2023 – Jun 2024 | Co-Founder & External VP | [Bruin Finance Society](https://bruinfinancesociety.org/) | Founded and scaled UCLA's premier undergrad business and finance org to 1,500+ members. |
+| Sep 2021 – Jun 2024 | Consulting Lead | [DataRes at UCLA](https://ucladatares.com/) | Pro-bono data consulting for local businesses (Hellosaurus, EpiData, HomeDescription). |
+| Sep 2022 – Mar 2024 | Vice President | [Google Developer Student Clubs (UCLA)](https://gdg.community.dev/gdg-on-campus-university-of-california-los-angeles-los-angeles-united-states/) | Building products with Google technologies; led an 8-person board. |
+| Sep 2021 – Aug 2023 | Workshops Director | [UCLA Statistics Club](https://statisticsucla.com/) | Technical workshops (Python, R, SQL) for 1,000+ students. |
