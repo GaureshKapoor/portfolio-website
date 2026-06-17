@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/Reveal";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import ProjectVisual from "@/components/ProjectVisuals";
 
 export const projects = [
@@ -111,8 +111,8 @@ const Tag = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ProjectsContent = () => {
-  const navigate = useNavigate();
-  const [showEarlier, setShowEarlier] = useState(false);
+  const [showEarlier, setShowEarlier] = useState(true);
+  const [selected, setSelected] = useState<(typeof projects)[number] | null>(null);
 
   return (
     <Reveal className="space-y-12">
@@ -122,12 +122,12 @@ const ProjectsContent = () => {
       </RevealItem>
 
       <RevealItem>
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-4 auto-rows-fr">
           {projects.map((p) => (
             <button
               key={p.slug}
-              onClick={() => navigate(`/projects/${p.slug}`)}
-              className="group text-left p-5 rounded-xl border border-border bg-card transition-all duration-300 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_12px_40px_-16px_hsl(var(--primary)/0.4)]"
+              onClick={() => setSelected(p)}
+              className="group flex flex-col h-full text-left p-5 rounded-xl border border-border bg-card transition-all duration-300 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_12px_40px_-16px_hsl(var(--primary)/0.4)]"
             >
               <ProjectVisual slug={p.slug} />
               <div className="mt-4 flex items-baseline justify-between gap-2">
@@ -138,7 +138,7 @@ const ProjectsContent = () => {
               </div>
               <p className="font-mono text-[11px] text-primary mt-0.5">{p.role}</p>
               <p className="text-[15px] text-foreground/80 leading-relaxed mt-2">{p.hook}</p>
-              <div className="flex flex-wrap gap-1.5 mt-4">
+              <div className="flex flex-wrap gap-1.5 mt-auto pt-4">
                 {p.stack.slice(0, 4).map((t) => (
                   <Tag key={t}>{t}</Tag>
                 ))}
@@ -193,6 +193,47 @@ const ProjectsContent = () => {
           </div>
         )}
       </RevealItem>
+
+      <Dialog open={!!selected} onOpenChange={(o) => { if (!o) setSelected(null); }}>
+        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
+          {selected && (
+            <div className="space-y-5">
+              <ProjectVisual slug={selected.slug} />
+              <div>
+                <DialogTitle className="font-display text-2xl font-bold text-foreground">
+                  {selected.name}
+                </DialogTitle>
+                <p className="font-mono text-xs text-primary mt-1">
+                  {selected.role} · {selected.period}
+                </p>
+              </div>
+              <p className="text-[15px] text-foreground/90 leading-relaxed">{selected.hook}</p>
+              <p className="text-[15px] text-muted-foreground leading-relaxed">{selected.longDescription}</p>
+              <div>
+                <h4 className="font-mono text-sm text-muted-foreground mb-3">
+                  <span className="text-primary"># </span>Tech Stack
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {selected.stack.map((t) => (
+                    <Tag key={t}>{t}</Tag>
+                  ))}
+                </div>
+              </div>
+              {selected.link && (
+                <a
+                  href={selected.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
+                >
+                  Visit {selected.name}
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </Reveal>
   );
 };

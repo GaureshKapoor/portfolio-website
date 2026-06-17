@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ExternalLink, Linkedin, ChevronDown } from "lucide-react";
+import { ExternalLink, Linkedin, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, XTwitter } from "@/components/BrandIcons";
 import { Reveal, RevealItem } from "@/components/Reveal";
 import { links } from "@/config/site";
@@ -27,48 +28,68 @@ const Subhead = ({ children }: { children: React.ReactNode }) => (
 );
 
 const LinkedInSection = () => {
-  const [open, setOpen] = useState(false);
+  const [idx, setIdx] = useState(0);
+  const n = linkedinEmbeds.length;
+  const go = (d: number) => setIdx((i) => (i + d + n) % n);
+  const embed = linkedinEmbeds[idx];
 
   return (
     <div>
-      <Subhead>LinkedIn</Subhead>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="lg:hidden inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
-        aria-expanded={open}
-      >
-        <ChevronDown
-          className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
-        />
-        {open ? "Hide LinkedIn posts" : "Show LinkedIn posts"}
-      </button>
-      <div className={`${open ? "block" : "hidden"} lg:block space-y-5`}>
-        {linkedinEmbeds.map((embed, i) => (
-          <div
-            key={i}
-            className="overflow-hidden rounded-lg bg-white border border-border shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:shadow-[0_10px_40px_-12px_rgba(0,0,0,0.55)]"
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-mono text-sm text-muted-foreground">
+          <span className="text-primary"># </span>LinkedIn
+        </h3>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => go(-1)}
+            aria-label="Previous post"
+            className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
           >
-            <iframe
-              src={embed.src}
-              height={embed.height}
-              width="100%"
-              frameBorder="0"
-              allowFullScreen
-              loading="lazy"
-              title={`LinkedIn post ${i + 1}`}
-              className="block w-full"
-            />
-          </div>
-        ))}
-        <a
-          href={links.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-        >
-          <Linkedin className="w-4 h-4" /> See all activity on LinkedIn
-        </a>
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <span className="font-mono text-xs text-muted-foreground tabular-nums w-10 text-center">
+            {idx + 1} / {n}
+          </span>
+          <button
+            onClick={() => go(1)}
+            aria-label="Next post"
+            className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -24 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="overflow-hidden rounded-lg bg-white border border-border shadow-sm dark:border-white/10 dark:shadow-[0_10px_40px_-12px_rgba(0,0,0,0.55)]"
+        >
+          <iframe
+            src={embed.src}
+            height={embed.height}
+            width="100%"
+            frameBorder="0"
+            allowFullScreen
+            loading="lazy"
+            title={`LinkedIn post ${idx + 1}`}
+            className="block w-full"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      <a
+        href={links.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline mt-4"
+      >
+        <Linkedin className="w-4 h-4" /> See all activity on LinkedIn
+      </a>
     </div>
   );
 };
@@ -77,29 +98,8 @@ const InstagramSection = () => (
   <div>
     <Subhead>Instagram</Subhead>
     <div className="flex items-center gap-3 mb-4">
-      <div className="w-11 h-11 rounded-full overflow-hidden border border-border shrink-0">
-        <img
-          src="/headshot.jpg"
-          alt="Gauresh Kapoor"
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            const el = e.currentTarget as HTMLImageElement;
-            el.style.display = "none";
-            const parent = el.parentElement;
-            if (parent) {
-              parent.classList.add(
-                "bg-primary/10",
-                "text-primary",
-                "flex",
-                "items-center",
-                "justify-center",
-                "text-sm",
-                "font-semibold"
-              );
-              parent.textContent = "GK";
-            }
-          }}
-        />
+      <div className="w-11 h-11 rounded-full bg-secondary border border-border flex items-center justify-center text-sm font-semibold text-muted-foreground shrink-0">
+        GK
       </div>
       <div className="min-w-0">
         <a
@@ -110,9 +110,6 @@ const InstagramSection = () => (
         >
           @gauresh_kapoor
         </a>
-        <p className="text-xs text-muted-foreground truncate">
-          AI builder, LA. Shipping Vault, Ionava, Wist.
-        </p>
       </div>
       <a
         href="https://www.instagram.com/gauresh_kapoor/"
@@ -144,13 +141,9 @@ const InstagramSection = () => (
         ))}
       </div>
     ) : (
-      <div className="rounded-lg border border-dashed border-border p-6 text-sm text-muted-foreground leading-relaxed">
-        Instagram posts coming soon. Paste post links to embed them here.{" "}
-        <span className="text-foreground/60">
-          (Add shortcodes to the{" "}
-          <span className="font-mono text-foreground">instagramPosts</span> array in{" "}
-          <span className="font-mono text-foreground">FeedContent.tsx</span>.)
-        </span>
+      <div className="rounded-lg border border-border bg-card p-8 flex flex-col items-center text-center">
+        <Instagram className="w-6 h-6 text-muted-foreground mb-2" />
+        <p className="text-sm text-muted-foreground">Posts coming soon.</p>
       </div>
     )}
   </div>

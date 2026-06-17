@@ -3,21 +3,21 @@ import { motion } from "framer-motion";
 import { Film, Music, BookOpen } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/Reveal";
 
-const interests = [
-  "AI & smart tech",
-  "adventure sports",
-  "travel",
-  "Bollywood music",
-  "stand-up comedy",
-  "fashion",
-  "video games",
-  "gym",
-  "soccer",
+const buckets = [
+  { emoji: "⚽", name: "Soccer", detail: "Lifelong Man City fan, always." },
+  { emoji: "🍜", name: "Foodie", detail: "Power Beli user, always chasing the next great spot." },
+  { emoji: "🪂", name: "Adventurer", detail: "Skydiving, hiking, the outdoors, all of it." },
+  { emoji: "📈", name: "Finance", detail: "Stock market, investments, and trading." },
+  { emoji: "✈️", name: "Travel", detail: "Avid traveller, 20+ countries and counting." },
+  { emoji: "🎬", name: "Cinephile", detail: "Movies, Bollywood, and TV shows. Find me on Letterboxd." },
+  { emoji: "🎤", name: "Concerts", detail: "Live music whenever I can. Favorite show: Post Malone." },
+  { emoji: "🤖", name: "Frontier Tech & Startups", detail: "Building and following both." },
+  { emoji: "🎮", name: "Video Games", detail: "Favorites: RDR 2, God of War, Spider-Man." },
 ];
 
 const languages: { name: string; level: string }[] = [
-  { name: "English", level: "native/bilingual" },
-  { name: "Hindi", level: "native/bilingual" },
+  { name: "English", level: "native" },
+  { name: "Hindi", level: "native" },
   { name: "French", level: "elementary" },
   { name: "Punjabi", level: "elementary" },
   { name: "Spanish", level: "elementary" },
@@ -89,9 +89,9 @@ const books: { title: string; author: string; slug: string; spineColor: string; 
     textColor: "text-orange-100",
   },
   {
-    title: "Shoe Dog",
-    author: "Phil Knight",
-    slug: "shoe-dog",
+    title: "The Lean Startup",
+    author: "Eric Ries",
+    slug: "the-lean-startup",
     spineColor: "bg-emerald-900",
     coverGradient: "from-emerald-900 to-emerald-700",
     textColor: "text-emerald-100",
@@ -101,7 +101,7 @@ const books: { title: string; author: string; slug: string; spineColor: string; 
 const offTheClock = [
   {
     label: "Builds for fun",
-    text: "Ships side projects on nights and weekends -- half my fun is a new repo.",
+    text: "Ships side projects on nights and weekends. Half my fun is a new repo.",
   },
   {
     label: "Gives back",
@@ -283,16 +283,18 @@ const FunFactsContent = () => {
       </RevealItem>
 
       <RevealItem>
-        <Subhead label="Into" />
-        <div className="mt-4 flex flex-wrap gap-2">
-          {interests.map((interest) => (
-            <motion.span
-              key={interest}
-              className="rounded-md border border-border bg-secondary px-3 py-1 text-sm text-secondary-foreground"
-              whileHover={{ scale: 1.05, transition: { duration: 0.15 } }}
+        <Subhead label="Hobbies" />
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {buckets.map((b) => (
+            <motion.div
+              key={b.name}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              className="rounded-lg border border-border bg-card p-4 hover:border-primary/40 transition-colors"
             >
-              {interest}
-            </motion.span>
+              <div className="text-2xl leading-none">{b.emoji}</div>
+              <p className="font-display font-semibold text-foreground mt-2.5">{b.name}</p>
+              <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{b.detail}</p>
+            </motion.div>
           ))}
         </div>
       </RevealItem>
@@ -314,12 +316,23 @@ const FunFactsContent = () => {
       </RevealItem>
 
       <RevealItem>
-        <div className="flex items-center gap-3">
-          <Subhead label="Movies" />
-          <span className="rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] font-mono text-primary">
-            Leo era
-          </span>
+        <Subhead label="Latest Rec" />
+        <p className="text-sm text-muted-foreground mt-1">A youtube video I enjoyed recently.</p>
+        <div className="mt-4 aspect-video max-w-2xl rounded-lg overflow-hidden border border-border bg-card">
+          <iframe
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/CEvIs9y1uog"
+            title="Latest watch"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
         </div>
+      </RevealItem>
+
+      <RevealItem>
+        <Subhead label="Movies" />
+        <p className="text-sm text-muted-foreground mt-1">I guess you can tell I'm a Leonardo DiCaprio fan :)</p>
         <div className="mt-4 grid grid-cols-3 gap-3 sm:gap-4">
           {movies.map((movie) => (
             <MovieCard key={movie.slug} movie={movie} />
@@ -329,6 +342,7 @@ const FunFactsContent = () => {
 
       <RevealItem>
         <Subhead label="Music" />
+        <p className="text-sm text-muted-foreground mt-1">Currently listening to following bangers!</p>
         <div className="mt-4 grid grid-cols-3 gap-4 sm:gap-6">
           {artists.map((artist) => (
             <VinylCard key={artist.slug} artist={artist} />
@@ -338,6 +352,7 @@ const FunFactsContent = () => {
 
       <RevealItem>
         <Subhead label="Books" />
+        <p className="text-sm text-muted-foreground mt-1">Learnt most from these books..</p>
         <div className="mt-4 grid grid-cols-3 gap-3 sm:gap-4">
           {books.map((book) => (
             <BookCard key={book.slug} book={book} />

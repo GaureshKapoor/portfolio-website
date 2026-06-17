@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Reveal, RevealItem } from "@/components/Reveal";
 
 type Experience = {
@@ -124,10 +124,10 @@ const trajectory: Experience[] = [
 ];
 
 const leadership = [
-  { role: "Co-Founder & External VP", org: "Bruin Finance Society", period: "Jan 2023 – Jun 2024", note: "Founded and scaled UCLA's premier undergrad business and finance org to 1,500+ members." },
-  { role: "Consulting Lead", org: "DataRes at UCLA", period: "Sep 2021 – Jun 2024", note: "Pro-bono data consulting for local businesses (Hellosaurus, EpiData, HomeDescription)." },
-  { role: "Vice President", org: "Google Developer Student Clubs (UCLA)", period: "Sep 2022 – Mar 2024", note: "Building products with Google technologies; led an 8-person board." },
-  { role: "Workshops Director", org: "UCLA Statistics Club", period: "Sep 2021 – Aug 2023", note: "Technical workshops (Python, R, SQL) for 1,000+ students." },
+  { role: "Co-Founder & External VP", org: "Bruin Finance Society", link: "https://bruinfinancesociety.org/", period: "Jan 2023 – Jun 2024", note: "Founded and scaled UCLA's premier undergrad business and finance org to 1,500+ members." },
+  { role: "Consulting Lead", org: "DataRes at UCLA", link: "https://ucladatares.com/", period: "Sep 2021 – Jun 2024", note: "Pro-bono data consulting for local businesses (Hellosaurus, EpiData, HomeDescription)." },
+  { role: "Vice President", org: "Google Developer Student Clubs (UCLA)", link: "https://gdg.community.dev/gdg-on-campus-university-of-california-los-angeles-los-angeles-united-states/", period: "Sep 2022 – Mar 2024", note: "Building products with Google technologies; led an 8-person board." },
+  { role: "Workshops Director", org: "UCLA Statistics Club", link: "https://statisticsucla.com/", period: "Sep 2021 – Aug 2023", note: "Technical workshops (Python, R, SQL) for 1,000+ students." },
 ];
 
 const CompanyMark = ({ src, name }: { src?: string; name: string }) => {
@@ -163,10 +163,41 @@ const OrgLine = ({ exp }: { exp: Experience }) => (
   </p>
 );
 
-const TimelineEntry = ({ exp, condensed }: { exp: Experience; condensed?: boolean }) => (
+const TimelineEntry = ({
+  exp,
+  condensed,
+  containerRef,
+  onActive,
+}: {
+  exp: Experience;
+  condensed?: boolean;
+  containerRef: React.RefObject<HTMLDivElement>;
+  onActive: (top: number) => void;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const nodeRef = useRef<HTMLSpanElement>(null);
+  const active = useInView(ref, { margin: "-45% 0px -45% 0px" });
+  useEffect(() => {
+    if (active && nodeRef.current && containerRef.current) {
+      const top =
+        nodeRef.current.getBoundingClientRect().top -
+        containerRef.current.getBoundingClientRect().top +
+        6;
+      onActive(top);
+    }
+  }, [active]);
+  return (
   <RevealItem className="group relative">
-    <span className="absolute -left-[26px] sm:-left-[29px] top-1.5 h-3 w-3 rounded-full border-2 border-primary bg-background transition-transform group-hover:scale-125" />
-    <p className="font-mono text-xs text-primary mb-2.5">{exp.period}</p>
+    <span
+      ref={nodeRef}
+      className={`absolute -left-[27px] sm:-left-[30px] top-1.5 h-3 w-3 rounded-full border-2 bg-background transition-all duration-300 ${
+        active
+          ? "border-primary scale-[1.6] shadow-[0_0_10px_2px_hsl(var(--primary)/0.6)]"
+          : "border-primary/50 group-hover:scale-125"
+      }`}
+    />
+    <div ref={ref}>
+    <p className={`font-mono text-xs mb-2.5 transition-colors ${active ? "text-primary" : "text-primary/70"}`}>{exp.period}</p>
     <div className="flex items-start gap-3">
       <CompanyMark src={exp.logo} name={exp.company} />
       <div className="min-w-0">
@@ -187,10 +218,14 @@ const TimelineEntry = ({ exp, condensed }: { exp: Experience; condensed?: boolea
         ))}
       </ul>
     )}
+    </div>
   </RevealItem>
-);
+  );
+};
 
 const ExperienceContent = () => {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [activeTop, setActiveTop] = useState(0);
   return (
     <Reveal className="space-y-12">
       <RevealItem>
@@ -198,28 +233,27 @@ const ExperienceContent = () => {
         <p className="text-muted-foreground mt-2">A lineage of building across AI, product, and data.</p>
       </RevealItem>
 
-      <div className="relative pl-7 sm:pl-8">
-        <div className="absolute left-[6px] sm:left-[7px] top-1.5 bottom-1.5 w-px bg-gradient-to-b from-primary/70 via-primary/25 to-transparent" />
-        <motion.span
+      <div ref={timelineRef} className="relative pl-7 sm:pl-8">
+        <div className="absolute left-[6px] sm:left-[7px] top-1.5 bottom-1.5 w-px bg-border" />
+        <motion.div
           aria-hidden="true"
-          className="absolute left-[3px] sm:left-[4px] h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_2px_hsl(var(--primary)/0.6)]"
-          initial={{ top: "0%", opacity: 0 }}
-          animate={{ top: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.2 }}
+          className="absolute left-[6px] sm:left-[7px] top-1.5 w-px bg-primary"
+          animate={{ height: Math.max(0, activeTop - 6) }}
+          transition={{ type: "spring", stiffness: 120, damping: 24 }}
+        />
+        <motion.div
+          aria-hidden="true"
+          className="absolute left-[6.5px] sm:left-[7.5px] h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/40 blur-[6px]"
+          animate={{ top: activeTop }}
+          transition={{ type: "spring", stiffness: 120, damping: 24 }}
         />
         <div className="space-y-11">
           {primary.map((exp, i) => (
-            <TimelineEntry key={`p-${i}`} exp={exp} />
+            <TimelineEntry key={`p-${i}`} exp={exp} containerRef={timelineRef} onActive={setActiveTop} />
           ))}
 
-          <RevealItem className="relative pt-2">
-            <p className="font-mono text-sm text-muted-foreground">
-              <span className="text-primary"># </span>Trajectory
-            </p>
-          </RevealItem>
-
           {trajectory.map((exp, i) => (
-            <TimelineEntry key={`t-${i}`} exp={exp} condensed />
+            <TimelineEntry key={`t-${i}`} exp={exp} condensed containerRef={timelineRef} onActive={setActiveTop} />
           ))}
         </div>
       </div>
@@ -233,7 +267,17 @@ const ExperienceContent = () => {
             <li key={l.org} className="flex flex-col sm:flex-row sm:items-baseline sm:gap-3">
               <span className="font-mono text-xs text-primary sm:w-36 sm:shrink-0">{l.period}</span>
               <span className="text-[15px] text-foreground/85">
-                <span className="font-medium text-foreground">{l.role}</span>, {l.org}. {l.note}
+                <span className="font-medium text-foreground">{l.role}</span>,{" "}
+                <a
+                  href={l.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-foreground hover:text-primary underline decoration-primary/30 underline-offset-2 transition-colors"
+                >
+                  {l.org}
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                . {l.note}
               </span>
             </li>
           ))}

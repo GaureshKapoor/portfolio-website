@@ -23,7 +23,7 @@ const AboutContent = () => {
     <Reveal>
       <div className="flex flex-col sm:flex-row gap-8 md:gap-10">
         <RevealItem className="shrink-0">
-          <ProfileAvatar className="w-44 h-44 md:w-52 md:h-52" />
+          <ProfileAvatar className="w-52 h-52 md:w-64 md:h-64" />
         </RevealItem>
 
         <div className="flex-1 min-w-0 space-y-10">

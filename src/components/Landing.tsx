@@ -24,7 +24,7 @@ const Landing = () => {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="shrink-0"
           >
-            <ProfileAvatar className="w-44 h-44 md:w-52 md:h-52" />
+            <ProfileAvatar className="w-48 h-48 md:w-60 md:h-60" />
           </motion.div>
 
           <StaggerChildren className="flex-1 min-w-0">
