@@ -66,7 +66,7 @@ const ContactForm = () => {
       });
       const data = await res.json();
       if (data.success) {
-        toast.success("Message sent — thanks for reaching out!");
+        toast.success("Message sent, thanks for reaching out!");
         form.reset();
       } else {
         toast.error("Something went wrong. Please try again or use the links above.");

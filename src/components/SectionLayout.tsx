@@ -10,9 +10,10 @@ import { sections } from "@/config/site";
 interface SectionLayoutProps {
   children: React.ReactNode;
   title?: string;
+  wide?: boolean;
 }
 
-const SectionLayout = ({ children, title }: SectionLayoutProps) => {
+const SectionLayout = ({ children, title, wide }: SectionLayoutProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -107,7 +108,7 @@ const SectionLayout = ({ children, title }: SectionLayoutProps) => {
       </AnimatePresence>
 
       {/* Content */}
-      <main className="flex-1 w-full max-w-3xl mx-auto px-6 py-10 md:py-16">
+      <main className={`flex-1 w-full mx-auto px-6 py-10 md:py-16 ${wide ? "max-w-5xl" : "max-w-3xl"}`}>
         <PageTransition>{children}</PageTransition>
       </main>
       <Footer />

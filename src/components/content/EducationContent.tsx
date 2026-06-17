@@ -1,3 +1,4 @@
+import { Award } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/Reveal";
 
 const honors = [
@@ -54,57 +55,78 @@ const coursework = {
   ],
 };
 
+const stats = [
+  { value: "3.8 / 4.0", label: "GPA" },
+  { value: "Double Major", label: "Degree Type" },
+  { value: "Sep 2021 - Jun 2025", label: "Dates" },
+  { value: "SAT 1540", label: "Score" },
+];
+
 const EducationContent = () => {
   return (
     <Reveal className="space-y-12">
       <RevealItem>
         <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">Education</h2>
-        <p className="text-muted-foreground mt-2">Where I studied and what I focused on.</p>
+        <p className="text-muted-foreground mt-2">
+          Academic foundation across data science, statistics, economics, and business.
+        </p>
       </RevealItem>
 
       <RevealItem>
-        <div className="flex flex-col gap-1">
-          <h3 className="font-display text-lg font-semibold text-foreground">
-            University of California, Los Angeles
-          </h3>
-          <p className="text-muted-foreground text-sm">Los Angeles, CA</p>
-          <p className="text-primary font-medium mt-1">
-            B.S. Statistics &amp; Data Science and B.A. Business Economics (Double Major)
-          </p>
-          <p className="font-mono text-xs text-muted-foreground mt-1">
-            Sep 2021 - Jun 2025 · GPA 3.8/4.0 · SAT 1540
-          </p>
-        </div>
+        <div className="rounded-lg border border-border bg-card p-6 border-l-4 border-l-primary">
+          <div className="mb-5">
+            <h3 className="font-display text-xl font-bold text-foreground">
+              University of California, Los Angeles
+            </h3>
+            <p className="text-muted-foreground text-sm mt-0.5">Los Angeles, CA</p>
+            <p className="text-primary font-medium mt-2">
+              B.S. Statistics &amp; Data Science and B.A. Business Economics
+            </p>
+          </div>
 
-        <div className="mt-4">
-          <p className="font-mono text-sm text-muted-foreground mb-2">
-            <span className="text-primary"># </span>Honors
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {honors.map((h) => (
-              <span
-                key={h}
-                className="px-2.5 py-1 text-sm rounded-md bg-secondary text-secondary-foreground border border-border transition-colors hover:border-primary/40 hover:text-foreground"
+          <div className="flex flex-wrap gap-3 mb-6">
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-md bg-secondary px-3 py-1.5 flex flex-col items-start"
               >
-                {h}
-              </span>
+                <span className="font-semibold text-foreground text-sm leading-tight">{s.value}</span>
+                <span className="text-xs text-muted-foreground mt-0.5">{s.label}</span>
+              </div>
             ))}
           </div>
-        </div>
 
-        <div className="mt-4">
-          <p className="font-mono text-sm text-muted-foreground mb-2">
-            <span className="text-primary"># </span>Activities
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {activities.map((a) => (
-              <span
-                key={a}
-                className="px-2 py-0.5 text-xs rounded-md bg-secondary/60 text-muted-foreground border border-border"
-              >
-                {a}
-              </span>
-            ))}
+          <div className="mb-5">
+            <p className="font-mono text-sm text-muted-foreground mb-2">
+              <span className="text-primary"># </span>Honors
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {honors.map((h) => (
+                <span
+                  key={h}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-sm rounded-md bg-secondary text-secondary-foreground border border-border hover:border-primary/40 hover:text-foreground transition-colors"
+                >
+                  <Award className="w-3 h-3 text-primary flex-shrink-0" />
+                  {h}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-sm text-muted-foreground mb-2">
+              <span className="text-primary"># </span>Activities
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {activities.map((a) => (
+                <span
+                  key={a}
+                  className="px-2 py-0.5 text-xs rounded-md bg-secondary/60 text-muted-foreground border border-border"
+                >
+                  {a}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </RevealItem>
@@ -120,7 +142,7 @@ const EducationContent = () => {
                 {courses.map((c) => (
                   <span
                     key={c}
-                    className="px-2.5 py-1 text-sm rounded-md bg-secondary text-secondary-foreground border border-border"
+                    className="px-2.5 py-1 text-sm rounded-md bg-secondary text-secondary-foreground border border-border hover:border-primary/40 transition-colors"
                   >
                     {c}
                   </span>
@@ -132,17 +154,17 @@ const EducationContent = () => {
       </RevealItem>
 
       <RevealItem>
-        <div className="border border-border rounded-lg p-4 bg-card opacity-80">
+        <div className="rounded-lg border border-border bg-card p-4 opacity-80">
           <h3 className="font-display text-base font-semibold text-foreground">
             Springdales School, Dhaula Kuan
           </h3>
-          <p className="text-muted-foreground text-sm mt-0.5">New Delhi · CBSE · 2015 - 2021</p>
+          <p className="text-muted-foreground text-sm mt-0.5">New Delhi · 2015 - 2021</p>
           <p className="text-sm text-muted-foreground mt-1">
-            98.2% (Grade XII), 98.4% (Grade X)
+            CBSE: 98.2% (XII), 98.4% (X)
           </p>
           <p className="text-sm text-muted-foreground mt-1">
-            School Topper (grades 9 to 12), School Prefect &amp; Student Council, House Captain (Peace
-            House), Executive Head of SPEX Computers Club.
+            School Topper grades 9 to 12, School Prefect &amp; Student Council, House Captain Peace
+            House, Executive Head SPEX Computers Club.
           </p>
         </div>
       </RevealItem>

@@ -1,26 +1,30 @@
-import { Mail, Linkedin, Github, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/Reveal";
-import { Instagram, XTwitter } from "@/components/BrandIcons";
-import { links } from "@/config/site";
 import ContactForm from "@/components/ContactForm";
 import GaureshAI from "@/components/GaureshAI";
 
 const contacts = [
-  { icon: Mail, label: "Email", value: "gaureshkapoor@gmail.com, gaureshkapoor7@ucla.edu", href: links.email },
-  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/gaureshkapoor", href: links.linkedin },
-  { icon: Github, label: "GitHub", value: "github.com/GaureshKapoor", href: links.github },
-  { icon: Phone, label: "Phone", value: "+1 (310) 562-4855", href: links.phone },
-  { icon: Instagram, label: "Instagram", value: "instagram.com/gauresh_kapoor", href: links.instagram },
-  { icon: XTwitter, label: "X / Twitter", value: "x.com/gaureshkapoor17", href: links.twitter },
+  {
+    icon: Mail,
+    label: "Email",
+    value: "gaureshkapoor@gmail.com, gaureshkapoor7@ucla.edu",
+    href: "mailto:gaureshkapoor@gmail.com",
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+1 (310) 562-4855",
+    href: "tel:+13105624855",
+  },
 ];
 
 const ContactContent = () => {
   return (
-    <Reveal className="space-y-12 max-w-3xl">
+    <Reveal className="space-y-10 max-w-5xl">
       <RevealItem>
         <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">Contact</h2>
         <p className="text-muted-foreground mt-2">
-          Let's connect — I'm always open to new opportunities and good conversations.
+          Let's connect. I'm always open to new opportunities and good conversations.
         </p>
       </RevealItem>
 
@@ -38,7 +42,7 @@ const ContactContent = () => {
                   className="group flex items-center gap-4 py-3.5 transition-colors"
                 >
                   <Icon className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-primary" />
-                  <span className="w-24 shrink-0 text-foreground transition-colors group-hover:text-primary">
+                  <span className="w-20 shrink-0 text-foreground transition-colors group-hover:text-primary">
                     {c.label}
                   </span>
                   <span className="min-w-0 truncate text-sm text-muted-foreground">{c.value}</span>
@@ -49,23 +53,21 @@ const ContactContent = () => {
         </ul>
       </RevealItem>
 
-      <RevealItem>
-        <h3 className="font-mono text-sm text-muted-foreground">
-          <span className="text-primary"># </span>Send a message
-        </h3>
-        <div className="mt-4">
+      <div className="grid lg:grid-cols-2 gap-6">
+        <RevealItem>
+          <h3 className="font-mono text-sm text-muted-foreground mb-4">
+            <span className="text-primary"># </span>Send a message
+          </h3>
           <ContactForm />
-        </div>
-      </RevealItem>
+        </RevealItem>
 
-      <RevealItem>
-        <h3 className="font-mono text-sm text-muted-foreground">
-          <span className="text-primary"># </span>Chat with Gauresh AI
-        </h3>
-        <div className="mt-4">
+        <RevealItem>
+          <h3 className="font-mono text-sm text-muted-foreground mb-4">
+            <span className="text-primary"># </span>Chat with Gauresh AI
+          </h3>
           <GaureshAI />
-        </div>
-      </RevealItem>
+        </RevealItem>
+      </div>
     </Reveal>
   );
 };

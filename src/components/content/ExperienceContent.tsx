@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 import { Reveal, RevealItem } from "@/components/Reveal";
 
 type Experience = {
@@ -199,6 +200,13 @@ const ExperienceContent = () => {
 
       <div className="relative pl-7 sm:pl-8">
         <div className="absolute left-[6px] sm:left-[7px] top-1.5 bottom-1.5 w-px bg-gradient-to-b from-primary/70 via-primary/25 to-transparent" />
+        <motion.span
+          aria-hidden="true"
+          className="absolute left-[3px] sm:left-[4px] h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_2px_hsl(var(--primary)/0.6)]"
+          initial={{ top: "0%", opacity: 0 }}
+          animate={{ top: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.2 }}
+        />
         <div className="space-y-11">
           {primary.map((exp, i) => (
             <TimelineEntry key={`p-${i}`} exp={exp} />

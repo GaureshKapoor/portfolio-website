@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState, FormEvent } from "react";
-import { Bot, Send } from "lucide-react";
+import { Sparkles, Send } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,11 +10,24 @@ type Message = { id: number; role: "assistant" | "user"; text: string };
 const SEED_MESSAGE: Message = {
   id: 0,
   role: "assistant",
-  text: "Hey! I'm Gauresh's AI — ask me about my work, projects, or background. (This is a demo; live answers coming soon.)",
+  text: "Hey! I'm Gauresh's AI. Ask me about his work, projects, or background. (This is a demo; live answers coming soon.)",
 };
 
 const MOCK_REPLY =
-  "Thanks for the message! Gauresh's live AI isn't connected yet — in the meantime, reach out via the form or links above.";
+  "Thanks for the message! Gauresh's live AI isn't connected yet. In the meantime, reach out via the form or the contact links above.";
+
+const TypingIndicator = () => (
+  <div className="flex items-center gap-1 px-3 py-2.5">
+    {[0, 1, 2].map((i) => (
+      <motion.span
+        key={i}
+        className="w-1.5 h-1.5 rounded-full bg-violet-400"
+        animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
+        transition={{ duration: 0.9, repeat: Infinity, delay: i * 0.2 }}
+      />
+    ))}
+  </div>
+);
 
 const GaureshAI = () => {
   const listRef = useRef<HTMLDivElement>(null);
@@ -46,23 +59,26 @@ const GaureshAI = () => {
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-lg border border-border bg-card">
-      <div className="flex items-center gap-3 p-4 border-b border-border">
-        <div className="w-9 h-9 rounded-md border border-border bg-secondary flex items-center justify-center shrink-0">
-          <Bot className="w-5 h-5 text-primary" />
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-violet-500/30 bg-gradient-to-b from-violet-500/10 via-card to-card backdrop-blur shadow-[0_8px_40px_-12px_rgba(139,92,246,0.35)]">
+      <div className="flex items-center gap-3 px-4 py-3.5 border-b border-violet-500/20">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-violet-500/25">
+          <Sparkles className="w-4 h-4 text-white" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <p className="text-sm font-medium text-foreground">Gauresh AI</p>
-            <span className="text-[10px] uppercase tracking-wide font-mono px-1.5 py-0.5 rounded bg-primary/10 text-primary">
+            <p className="text-sm font-semibold text-foreground">Gauresh AI</p>
+            <span className="text-[10px] uppercase tracking-wide font-mono px-1.5 py-0.5 rounded bg-violet-500/15 text-violet-400 border border-violet-500/20">
               Beta
             </span>
           </div>
-          <p className="text-xs text-muted-foreground">Ask me anything — trained on Gauresh's background. (Demo)</p>
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_4px_1px_rgba(52,211,153,0.6)]" />
+            <p className="text-xs text-muted-foreground">Online (Demo)</p>
+          </div>
         </div>
       </div>
 
-      <div ref={listRef} className="max-h-80 overflow-y-auto p-4 space-y-3">
+      <div ref={listRef} className="max-h-80 overflow-y-auto px-4 py-4 space-y-3">
         <AnimatePresence initial={false}>
           {messages.map((m) => (
             <motion.div
@@ -73,10 +89,10 @@ const GaureshAI = () => {
               className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[85%] text-sm px-3 py-2 rounded-lg leading-relaxed ${
+                className={`max-w-[85%] text-sm px-3 py-2 rounded-xl leading-relaxed ${
                   m.role === "user"
                     ? "bg-primary text-primary-foreground rounded-br-sm"
-                    : "bg-secondary text-foreground rounded-bl-sm"
+                    : "bg-violet-500/10 text-foreground rounded-bl-sm border border-violet-500/15"
                 }`}
               >
                 {m.text}
@@ -91,20 +107,20 @@ const GaureshAI = () => {
               exit={{ opacity: 0 }}
               className="flex justify-start"
             >
-              <div className="bg-secondary text-muted-foreground text-sm px-3 py-2 rounded-lg rounded-bl-sm">
-                Thinking...
+              <div className="bg-violet-500/10 rounded-xl rounded-bl-sm border border-violet-500/15">
+                <TypingIndicator />
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex items-center gap-2 p-3 border-t border-border">
+      <form onSubmit={handleSubmit} className="flex items-center gap-2 px-3 py-3 border-t border-violet-500/20">
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask Gauresh AI..."
-          className="flex-1"
+          className="flex-1 border-violet-500/20 focus-visible:ring-violet-500/40 bg-violet-500/5"
           aria-label="Message Gauresh AI"
         />
         <Button
@@ -112,7 +128,7 @@ const GaureshAI = () => {
           size="icon"
           disabled={!input.trim() || thinking}
           aria-label="Send"
-          className="bg-primary text-primary-foreground hover:bg-primary/90"
+          className="bg-gradient-to-br from-violet-500 to-indigo-600 text-white hover:from-violet-400 hover:to-indigo-500 border-0 shadow-md shadow-violet-500/25 disabled:opacity-40"
         >
           <Send className="w-4 h-4" />
         </Button>
