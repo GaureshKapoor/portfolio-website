@@ -43,14 +43,23 @@ These render as **real, live Instagram posts** (official `/embed/captioned` ifra
 
 Then tell Claude to sync these into `FeedContent.tsx` → `instagramPosts`.
 
-Posts embedded (display order, first is the pinned post):
-- ClVF0Twr22d (pinned)
+Posts embedded (display order):
 - DSzfXQglC7V
 - DCcuACyT163
 - C3oH34KPwlp
 - C20SHQYvnNW
 - C0UyLo6ys37
 - Ch6-dA-L-zv
+
+> The pinned post `ClVF0Twr22d` is intentionally NOT embedded: Instagram refuses to
+> serve it in an iframe (returns a login wall / X-Frame-deny), which is typical for a
+> video post with licensed audio. Neither the video nor the rest of the post can be
+> pulled in automatically. To feature it, add a custom static card with a
+> manually-supplied image + caption.
+
+> LinkedIn note: embeds are rendered without `?collapsed=1` so each post shows its full
+> caption top-to-bottom (no "see more"). LinkedIn iframes are fixed-height and expose no
+> auto-resize, so heights are set per post in `FeedContent.tsx` -> `linkedinEmbeds`.
 
 ## X / Twitter
 
