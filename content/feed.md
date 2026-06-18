@@ -20,6 +20,7 @@ These render as **real, live LinkedIn posts** (official embeds, native look, liv
 Then tell Claude to sync these into `FeedContent.tsx` → `linkedinEmbeds`.
 
 Posts embedded (newest first, synced into `FeedContent.tsx` → `linkedinEmbeds`):
+- urn:li:ugcPost:7473163905981116416 (h=1034) — 1-year-since-UCLA checkpoint / comeback post
 - urn:li:ugcPost:7323576666180476928 (h=881)
 - urn:li:ugcPost:7296135446890201088 (h=627)
 - urn:li:share:7120559797900316672 (h=263)
