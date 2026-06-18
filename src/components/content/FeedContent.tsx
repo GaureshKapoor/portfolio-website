@@ -8,6 +8,7 @@ import { links } from "@/config/site";
 // Official LinkedIn embeds. To add a post: open it on LinkedIn -> "..." -> "Embed this post",
 // copy the iframe's src URL + height, and add an entry here (newest first).
 const linkedinEmbeds: { src: string; height: number }[] = [
+  { src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7473163905981116416", height: 1034 },
   { src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7323576666180476928", height: 881 },
   { src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7296135446890201088", height: 627 },
   { src: "https://www.linkedin.com/embed/feed/update/urn:li:share:7120559797900316672", height: 263 },
