@@ -23,7 +23,7 @@ Vault turns raw ideas into structured, actionable execution flows, built to make
 
 **Role:** Founding Engineer
 **Period:** Sep 2025 – Present
-**Link:** (no public link)
+**Link:** [ionava.com](https://ionava.com)
 **Stack:** Full-stack web, API integrations, Secure data layers
 
 **Hook:** A production fintech wellness platform pairing financial health with everyday well-being.

@@ -2,7 +2,7 @@
 // + the "last updated" footer. Keep this in sync when content/ changes.
 
 // Bump this after any substantial profile/experience/content update. Format: "Month YYYY".
-export const lastUpdated = "June 2026";
+export const lastUpdated = "July 2026";
 
 // Single source of truth for outbound links. Some appear on the site (footer,
 // contact, landing); some are here just for reference. Mirror from content/links.md.

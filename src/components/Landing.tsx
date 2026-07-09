@@ -40,17 +40,26 @@ const Landing = () => {
 
           <motion.h1
             variants={staggerItem}
-            className="font-display text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-4"
+            className="font-display text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-5"
           >
             Gauresh Kapoor
           </motion.h1>
 
           <motion.p
             variants={staggerItem}
+            className="font-mono text-sm md:text-[15px] font-semibold text-foreground mb-4"
+          >
+            AI Product Engineer <span className="text-primary">@ PwC Deals</span>
+            <span className="text-muted-foreground/50"> | </span>
+            UCLA Alum 🐻
+          </motion.p>
+
+          <motion.p
+            variants={staggerItem}
             className="text-lg text-muted-foreground max-w-xl leading-relaxed mb-10"
           >
-            Equal parts engineer and operator, building at the intersection of AI,
-            product, and business.
+            Equal parts engineer and operator, building AI products at the
+            intersection of data and business.
           </motion.p>
 
           <motion.nav variants={staggerItem} className="mb-12">

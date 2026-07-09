@@ -2,13 +2,13 @@
 
 ## Bio
 
-Hi, I'm Gauresh 👋. I build at the intersection of AI, data, product, and business. Equal parts engineer and operator: curious, ambitious, constantly learning, and obsessed with building what's next.
+Hi, I'm Gauresh 👋. Equal parts engineer and operator, I build AI products at the intersection of data and business, and love owning the full product lifecycle. I am curious, ambitious, constantly learning, and obsessed with building what's next.
 
-At [PwC](https://www.pwc.com) Deals, I work inside the Technology & Data practice, shipping AI-native products, data systems, and automation across M&A tech diligence and enterprise analytics. My day-to-day spans AI strategy, agentic product development, data engineering, and on-prem client delivery, partnering directly with Fortune 500 clients and PE-backed companies on hard operational and technical problems.
+At [PwC](https://www.pwc.com) Deals, I work within the Technology & Data practice, building production AI-native products, LLM platforms, agentic workflows, and data pipelines, plus automation across M&A tech diligence and enterprise analytics. My day-to-day spans AI strategy, agentic product development, data engineering, and on-prem client delivery, partnering directly with Fortune 500 clients and PE-backed companies to solve complex operational and technical challenges and drive measurable business impact.
 
-Previously I built GenAI products at [Zeta Global](https://www.zetaglobal.com) and worked on FinTech product strategy at [Clear](https://www.clear.in). Outside of work, I build full-stack AI products from zero to one, most recently [Vault](https://joinvault.app), Ionava, and [Wist Health](https://www.wist.health).
+Previously, I built GenAI products at [Zeta Global](https://www.zetaglobal.com) and worked on FinTech product strategy at [Clear](https://www.clear.in). Outside of work, I build and ship full-stack AI products from zero to one, most recently [Vault](https://joinvault.app), an agentic AI app for ideation; [Ionava](https://ionava.com), an angel-backed fintech platform for health and wellness; and [Wist Health](https://www.wist.health), a mental-health AI app published on the App Store.
 
-I studied Statistics & Data Science and Business Economics at [UCLA](https://www.ucla.edu), and what drives me hasn't changed: deliver real products, solve hard problems with AI, and operate across the full stack, technical, strategic, and human.
+I studied Statistics & Data Science and Business Economics at [UCLA](https://www.ucla.edu).
 
 ## Principles
 

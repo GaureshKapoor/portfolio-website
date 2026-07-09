@@ -19,11 +19,21 @@ const primary: Experience[] = [
     company: "PwC",
     logo: "/logos/pwc.png",
     link: "https://www.pwc.com",
+    role: "Experienced Associate",
+    period: "Jun 2026 – Present",
+    location: "San Francisco Bay Area",
+    descriptor:
+      "A global professional-services network. Relocated to the Bay Area and geared up for more, driving AI-native product development inside the Technology & Data practice.",
+  },
+  {
+    company: "PwC",
+    logo: "/logos/pwc.png",
+    link: "https://www.pwc.com",
     role: "Associate, AI & Data Solutions",
-    period: "Jun 2025 – Present",
+    period: "Jun 2025 – Jun 2026",
     location: "Los Angeles, CA",
     descriptor:
-      "A global professional-services network. I drive AI-native product development inside the Technology & Data practice, leading client engagements and the operational systems behind them.",
+      "Built AI-native products and delivery systems across M&A tech diligence and enterprise analytics, partnering directly with Fortune 500 and PE-backed clients.",
     bullets: [
       "Engineered and deployed an LLM-powered client delivery platform (React, LangChain, Anthropic API, Azure/AWS), cutting deliverable production from ~8 hours to 45 minutes via reusable agentic workflows.",
       "Designed AI-driven customer analytics dashboards on Databricks Delta Lake pipelines with LLM-based parsing for a $100B+ Financial Services client, reducing manual synthesis by 60% across 100K+ customer records.",
