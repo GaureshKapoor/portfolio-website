@@ -25,7 +25,7 @@ export const projects = [
     longDescription:
       "I launched Ionava as a full-stack production platform, owning the frontend architecture, backend services, data layers, and security. I built the stateful user flows and API integrations behind features like the Health Score and Wellness Wallet, translating financial-health planning into something a user actually returns to. Angel-backed and shipping.",
     stack: ["Full-stack web", "API integrations", "Secure data layers"],
-    link: "",
+    link: "https://ionava.com",
   },
   {
     slug: "wist-health",

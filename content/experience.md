@@ -8,11 +8,19 @@ A lineage of building across AI, product, and data.
 
 ### PwC
 
-**Associate, AI & Data Solutions**
-Jun 2025 – Present · Los Angeles, CA
+**Experienced Associate**
+Jun 2026 – Present · San Francisco Bay Area
 Logo: `/logos/pwc.png` · [pwc.com](https://www.pwc.com)
 
-*A global professional-services network. I drive AI-native product development inside the Technology & Data practice, leading client engagements and the operational systems behind them.*
+*A global professional-services network. Relocated to the Bay Area and geared up for more, driving AI-native product development inside the Technology & Data practice.*
+
+### PwC
+
+**Associate, AI & Data Solutions**
+Jun 2025 – Jun 2026 · Los Angeles, CA
+Logo: `/logos/pwc.png` · [pwc.com](https://www.pwc.com)
+
+*Built AI-native products and delivery systems across M&A tech diligence and enterprise analytics, partnering directly with Fortune 500 and PE-backed clients.*
 
 - Engineered and deployed an LLM-powered client delivery platform (React, LangChain, Anthropic API, Azure/AWS), cutting deliverable production from ~8 hours to 45 minutes via reusable agentic workflows.
 - Designed AI-driven customer analytics dashboards on Databricks Delta Lake pipelines with LLM-based parsing for a $100B+ Financial Services client, reducing manual synthesis by 60% across 100K+ customer records.
